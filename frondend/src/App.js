@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import { initializeBlogs } from "./reducers/blogs.reducer";
+import { initializeBlogs } from "./reducers/blogs.reducer"
+import { Container } from 'semantic-ui-react'
+import Blogs from './components/blogs/blogs';
 
 function App(props) {
   useEffect(() => {
@@ -8,20 +10,9 @@ function App(props) {
 
   }, [])
   return (
-    <div>
-      <h1>blogs from backend to frond end</h1>
-      <ul>
-        {props.blogs.map(blog => 
-          <li key={blog.id}>
-           
-            <img src={blog.url} alt="" style={{maxHeight: 200}}/>
-            {blog.title}
-          </li>
-          )}
-        
-
-      </ul>
-    </div>
+    <Container>
+      <Blogs />
+    </Container>
   );
 }
 

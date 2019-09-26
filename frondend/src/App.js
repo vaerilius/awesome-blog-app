@@ -9,7 +9,18 @@ function App(props) {
   }, [])
   return (
     <div>
-      <h1>app created</h1>
+      <h1>blogs from backend to frond end</h1>
+      <ul>
+        {props.blogs.map(blog => 
+          <li key={blog.id}>
+           
+            <img src={blog.url} alt="" style={{maxHeight: 200}}/>
+            {blog.title}
+          </li>
+          )}
+        
+
+      </ul>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import NewBlogForm from './newBlogForm'
 import { Table, Image, Header, Icon } from 'semantic-ui-react'
 
 const Blogs = (props) => {
@@ -9,6 +10,7 @@ const Blogs = (props) => {
           <Header  size='huge' icon textAlign='center'>
       
       <Header.Content><Icon name='images' circular />Blogs</Header.Content>
+      <NewBlogForm />
     </Header>
     
     <Table striped celled>

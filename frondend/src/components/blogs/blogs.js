@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import NewBlogForm from './newBlogForm'
-import { Table, Image, Header, Icon } from 'semantic-ui-react'
+import BlosListItem from './blogListItem'
+import { Header, Icon } from 'semantic-ui-react'
 
 const Blogs = (props) => {
 
@@ -13,31 +14,27 @@ const Blogs = (props) => {
       <NewBlogForm />
     </Header>
     
-    <Table striped celled>
-    <Table.Header >
+    <table className="ui selectable inverted blue table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>User</th>
+      <th className="right aligned">Picture</th>
+      <th className="right aligned">Likes</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+      {props.blogs.map(blog => 
+        <tr key={blog}>
+        <BlosListItem blog={blog} />
+        </tr>
 
-      <Table.Row>
-        <Table.HeaderCell>Title</Table.HeaderCell>
-        <Table.HeaderCell>Image</Table.HeaderCell>
-        <Table.HeaderCell>Likes</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
-      <Table.Body>
-        {props.blogs.map(blog =>
-          <Table.Row key={blog.id}>
-            <Table.Cell>
-                {blog.title}
-            </Table.Cell>
-            <Table.Cell>
-            <Image src={blog.url} size='tiny' circular />
-            </Table.Cell>
-            <Table.Cell>
-                {blog.likes}
-            </Table.Cell>
-          </Table.Row>
         )}
-      </Table.Body>
-    </Table>
+
+
+  </tbody>
+</table>
   </div>
   )
 

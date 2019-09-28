@@ -20,27 +20,32 @@ module.exports = {
   plugins: [
     'react',"react-hooks"
   ],
-  "rules": {
-    "indent": [
-      "error",
-      2
+  'rules': {
+    'indent': [
+        'error',
+        2
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
+    'linebreak-style': [
+        'error',
+        'unix'
     ],
-    "semi": ["error", "never"],
-    "quotes": ["error", "single"],
+    'quotes': [
+        'error',
+        'single'
+    ],
+    'semi': [
+        'error',
+        'never'
+    ],
     "eqeqeq": "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": [
-      "error", "always"
+        "error", "always"
     ],
     "arrow-spacing": [
-      "error", { "before": true, "after": true }
+        "error", { "before": true, "after": true }
     ],
-    "no-console": 0,
-    "react/prop-types": 0
-  },
+    "no-console": 0
+}
 
 };

@@ -2,40 +2,32 @@ import React from 'react'
 import { connect } from 'react-redux'
 import NewBlogForm from './newBlogForm'
 import BlosListItem from './blogListItem'
-import { Header, Icon } from 'semantic-ui-react'
 
 const Blogs = (props) => {
 
   return (
-    <div>
-          <Header  size='huge' icon textAlign='center'>
-      
-      <Header.Content><Icon name='images' circular />Blogs</Header.Content>
-      <NewBlogForm />
-    </Header>
-    
-    <table className="ui selectable inverted blue table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>User</th>
-      <th className="right aligned">Picture</th>
-      <th className="right aligned">Likes</th>
-    </tr>
-  </thead>
-  <tbody>
-  
-      {props.blogs.map(blog => 
-        <tr key={blog}>
-        <BlosListItem blog={blog} />
-        </tr>
 
-        )}
+    <div className="ui grid container center aligned">
+        <div className="center aligned one column row">
+    <div className="column">
+      <div className="ui segment">
+        <h2>Blogs / pictures</h2>
+        <NewBlogForm />
+      </div>
+    </div>
 
-
-  </tbody>
-</table>
   </div>
+
+      {props.blogs.map(blog =>
+
+            <div className="ui small images rounded" key={blog.id}>
+            <BlosListItem blog={blog} />
+             
+
+        </div>
+      )}
+        </div>
+
   )
 
 }
@@ -47,3 +39,4 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Blogs)
+

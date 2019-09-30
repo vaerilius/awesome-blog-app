@@ -1,19 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const BlogListItem = (props) => {
 
   return (
     <>
-      <td>{props.blog.title}</td>
-      <td>{props.blog.user.name}</td>
+        <Link to={`blogs/${props.blog.id}`}> 
+        <img src={props.blog.url} alt={props.blog.url}/>
+        </Link>
+    </>
 
-      <td ><img className="ui tiny image center aligned" alt="joku" src={props.blog.url} /></td>
-      <td className="right aligned">{props.blog.likes}</td>
-
-
-  </>
   )
-
 }
 
 export default BlogListItem

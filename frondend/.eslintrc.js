@@ -4,7 +4,8 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'airbnb',
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   globals: {
     Atomics: 'readonly',

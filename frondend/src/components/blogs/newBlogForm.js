@@ -22,7 +22,7 @@ const NewBlog= (props) => {
     }
 
     props.onAddBlog(newBlog)
-
+    props.newBlogRef.current.toggleVisibility()
     resetTitle()
     resetUrl()
     resetDescription()
@@ -41,9 +41,9 @@ const NewBlog= (props) => {
   </div>
   <div className="field">
     <label>Description</label>
-    <input  {...description} />
+    <textarea rows="2" {...description} />
   </div>
-  <button className="ui button" type="submit">Submit</button>
+  <button className="ui button" type="submit">Create new blog</button>
 </form>
   )
 }

@@ -4,6 +4,7 @@ import { initializeBlogs } from "./reducers/blogs.reducer"
 import Blogs from './components/blogs/blogs';
 import Blog from './components/blogs/blog/blog';
 import Navbar from './components/menu/menu';
+import { Container } from 'semantic-ui-react'
 
 import {
   BrowserRouter as Router,
@@ -21,22 +22,17 @@ const App = (props) => {
   return (
     <>
       <Router>
+        <Container style={{margin: "3rem"}}>
         <Navbar />
-        <div className="ui container">
-          <h2>Awesome Blog App</h2>
+
           <Route exact path="/" render={() => <Landing />} />
           <Route exact path="/blogs/:id" render={({ match }) =>
             <Blog blog={props.blogs.find(b => b.id === match.params.id)} />
           } />
-          
-
-
-        </div>
         <Route exact path="/blogs" render={() => <Blogs />} />
+          
+        </Container>
         
-
-
-
 
       </Router>
 

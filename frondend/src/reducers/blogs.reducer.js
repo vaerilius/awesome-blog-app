@@ -1,4 +1,5 @@
 import blogService from '../services/blogs.service'
+import { async } from 'q'
 
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -8,6 +9,8 @@ const reducer = (state = [], action) => {
       return [...state, action.blog]
     case 'LIKE_BLOG':
       return state.map(blog => blog.id === action.data.id ? action.data : blog)
+    case 'REMOVE_BLOG':
+      return state.filter(blog => blog.id !== action.id)
     default:
       return state
   }
@@ -42,6 +45,16 @@ export const onAddBlog = (data) => {
       type: 'ADD_BLOG',
       blog
     })
+  }
+}
+export const onRemoveBlog = (id) => {
+  return async dispatch => {
+   const response = await blogService.removeBlog(id)
+   console.log(response)
+   dispatch({
+     type: 'REMOVE_BLOG',
+     id
+   })
   }
 }
 

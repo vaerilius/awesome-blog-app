@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { onLikeBlog } from '../../../reducers/blogs.reducer'
+import { onLikeBlog, onRemoveBlog } from '../../../reducers/blogs.reducer'
 
 
 const Blog = (props) => {
 
-  const handleClick = () => props.onLikeBlog(props.blog)
+  const like = () => props.onLikeBlog(props.blog)
+  const remove = () => props.onRemoveBlog(props.blog.id)
 
   if (props.blog === undefined) {
     return <h2>loading</h2>
@@ -25,7 +26,7 @@ const Blog = (props) => {
             <div className="ui button disabled">
               {props.blog.likes} Likes
                 </div>
-            <button className="ui button" onClick={handleClick}>
+            <button className="ui button" onClick={like}>
               <i className="heart icon"></i>
               Like
             </button>
@@ -38,7 +39,16 @@ const Blog = (props) => {
             <div className="ui button">
               <i className="comment icon"></i>
               Comment
-                </div>
+              </div>
+              <Link
+               to={"/blogs"}
+                className={"ui button"}
+                 onClick={remove}>
+              <i className="trash icon"></i>
+              Remove
+              </Link>
+              
+
           </div>
         </div>
         <div className="column ">
@@ -53,7 +63,7 @@ const Blog = (props) => {
               </div>
             </div>
             <div className="extra content">
-            <p className="ui icon header">Comments: </p>
+              <p className="ui icon header">Comments: </p>
 
               <div className="ui list">
                 <div className="center aligned item">Apples</div>
@@ -79,4 +89,6 @@ const Blog = (props) => {
 
 }
 
-export default connect(null, { onLikeBlog })(Blog)
+export default connect(null,
+   { onLikeBlog, onRemoveBlog  }
+   )(Blog)

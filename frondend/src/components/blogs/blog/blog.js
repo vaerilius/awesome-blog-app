@@ -1,10 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { onLikeBlog } from '../../../reducers/blogs.reducer'
 
 
 const Blog = (props) => {
+
+  const handleClick = () => props.onLikeBlog(props.blog)
+
   if (props.blog === undefined) {
-    return <h1>joo</h1>
+    return <h2>loading</h2>
   }
 
   return (
@@ -20,10 +25,10 @@ const Blog = (props) => {
             <div className="ui button disabled">
               {props.blog.likes} Likes
                 </div>
-            <div className="ui button" >
+            <button className="ui button" onClick={handleClick}>
               <i className="heart icon"></i>
               Like
-            </div>
+            </button>
 
             <div className="extra content">
               <div className="ui large transparent left icon input">
@@ -74,4 +79,4 @@ const Blog = (props) => {
 
 }
 
-export default Blog
+export default connect(null, { onLikeBlog })(Blog)

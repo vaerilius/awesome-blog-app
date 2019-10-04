@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom'
 const BlogListItem = (props) => {
 
   const img = {
-    height: "17rem",
-    width: "17rem",
+    height: "15rem",
+    width: "auto",
     maxHeight: "25rem",
-    minHeight: "25rem",
-
+    minHeight: "15rem",
   }
 
   return (

@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { onLikeBlog, onRemoveBlog } from '../../../reducers/blogs.reducer'
-
+import { onLikeBlog, onRemoveBlog, onAddComment } from '../../../reducers/blogs.reducer'
+import { useField } from '../../../hooks/index';
+import { Button, Icon, Image, Modal } from 'semantic-ui-react'
 
 const Blog = (props) => {
+  const [comment, clearComment] = useField('text')
+
 
   const like = () => props.onLikeBlog(props.blog)
   const remove = () => props.onRemoveBlog(props.blog.id)
@@ -13,62 +16,88 @@ const Blog = (props) => {
     return <h2>loading</h2>
   }
 
+  const handleComment = () => {
+    props.onAddComment({ comment: comment.value }, props.blog.id)
+    clearComment()
+  }
+
   return (
     <div className="ui vertically divided grid centered">
       <div className="ui large header ">Title: {props.blog.title}</div>
       <div className="two column row ">
         <div className="column">
-          <div className="ui card centered ">
-
+          <div className="ui fluid card centered ">
             <div className="image" >
-              <img src={props.blog.url} alt="aaa" />
+              <Modal
+                trigger={
+                  <Image src={props.blog.url} alt="aaa" />}>
+                <Modal.Content image>
+                  <Image wrapped size='huge' src={props.blog.url} />
+                </Modal.Content>
+
+              </Modal>
             </div>
             <div className="ui button disabled">
               {props.blog.likes} Likes
                 </div>
-            <button className="ui button" onClick={like}>
+            <button className="ui button"
+              onClick={like}>
               <i className="heart icon"></i>
               Like
             </button>
 
             <div className="extra content">
-              <div className="ui large transparent left icon input">
-                <input type="text" placeholder="Add Comment..." />
+              <div className="ui transparent icon input">
+                <input
+                  placeholder="Comment.."
+                  {...comment}
+                />
               </div>
             </div>
-            <div className="ui button">
+            <button
+              className="ui button"
+              onClick={handleComment}
+            >
               <i className="comment icon"></i>
               Comment
-              </div>
-              <Link
-               to={"/blogs"}
-                className={"ui button"}
-                 onClick={remove}>
+              </button>
+            <Link
+              to={"/blogs"}
+              className={"ui button"}
+              onClick={remove}>
               <i className="trash icon"></i>
               Remove
               </Link>
-              
 
           </div>
         </div>
         <div className="column ">
-          <div className="ui card">
+          <div className="ui fluid card">
             <div className="content">
-              <div className="center aligned header">{props.blog.user.name}</div>
+              <div className="center aligned header">
+                <i className="user large icon"></i>
+                <h3>
+                  {props.blog.author}
+
+                </h3>
+              </div>
               <div className="center aligned description">
-                <p className="ui icon header">Description: </p>
+
+                <p className="ui header">Description: </p>
                 <p>{props.blog.description}</p>
-                <p>Link:</p>
-                <a href={props.blog.url}>Picture link</a>
+
+
               </div>
             </div>
             <div className="extra content">
               <p className="ui icon header">Comments: </p>
 
               <div className="ui list">
-                <div className="center aligned item">Apples</div>
-                <div className="center aligned item">Pears</div>
-                <div className="center aligned item">Oranges</div>
+                {props.blog.comments.map(comment =>
+                  <div className="center aligned item" key={comment}>
+                    {comment}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -77,18 +106,21 @@ const Blog = (props) => {
 
       </div>
       <Link to={'/blogs'}>
-        <button className="ui active button">
-          <i className="step backward icon"></i>Back to blogs</button>
+        <Button primary>
+          Back to blogs <Icon name='step backward' />
+        </Button>
       </Link>
 
     </div>
-
-
 
   )
 
 }
 
 export default connect(null,
-   { onLikeBlog, onRemoveBlog  }
-   )(Blog)
+  {
+    onLikeBlog,
+    onRemoveBlog,
+    onAddComment
+  }
+)(Blog)

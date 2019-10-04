@@ -1,5 +1,5 @@
 # awesome-blog-app
 Application was made at Laurea University JavaScript course
 
-hours spended = approximately 14h
+hours spended = approximately 16h
 

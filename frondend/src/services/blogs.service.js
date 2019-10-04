@@ -1,10 +1,17 @@
 import axios from 'axios'
 const baseUrl = '/api/blogs'
 
-let token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYSIsImlkIjoiNWQ4YzYxYzZkODE4NGYyZDY0NjRjY2NjIiwiaWF0IjoxNTY5NDgxMTg3fQ.KOs-1vucwpQou25B5hQZY1CSxo76X1dV3jxvfEY1QxM'
+let token = null
+
+const setToken = newToken => {
+  token = `bearer ${newToken}`
+}
 const getConfig = () => ({
   headers: { Authorization: token }
 })
+const destroyToken = () => {
+  token = null
+}
 const getAll = async () => {
   const blogs = await axios.get(baseUrl)
   return blogs.data
@@ -26,10 +33,14 @@ const response = await axios.post(`${baseUrl}/${id}/comments`, comment, getConfi
 return response.data
 }
 
+
+
 export default {
   getAll,
   addBlog,
   updateBlog,
   removeBlog,
-  commentBlog
+  commentBlog,
+  setToken,
+  destroyToken
 }

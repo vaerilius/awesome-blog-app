@@ -40,35 +40,33 @@ const Blog = (props) => {
             <div className="ui button disabled">
               {props.blog.likes} Likes
                 </div>
-            <button className="ui button"
-              onClick={like}>
-              <i className="heart icon"></i>
-              Like
-            </button>
-
-            <div className="extra content">
-              <div className="ui transparent icon input">
-                <input
-                  placeholder="Comment.."
-                  {...comment}
-                />
-              </div>
-            </div>
-            <button
-              className="ui button"
-              onClick={handleComment}
-            >
-              <i className="comment icon"></i>
-              Comment
-              </button>
-            <Link
-              to={"/blogs"}
-              className={"ui button"}
-              onClick={remove}>
-              <i className="trash icon"></i>
-              Remove
+            {props.user ?
+              <button className="ui button"
+                onClick={like}>
+                <i className="heart icon"></i>
+                Like
+              </button> &&
+              <div className="extra content">
+                <div className="ui transparent icon input">
+                  <input
+                    placeholder="Comment.."
+                    {...comment}
+                  />
+                </div>
+              </div> &&
+              <button className="ui button" onClick={handleComment}>
+                <i className="comment icon"></i>
+                Comment
+              </button> &&
+              <Link
+                to={"/blogs"}
+                className={"ui button"}
+                onClick={remove}>
+                <i className="trash icon"></i>
+                Remove
               </Link>
-
+              : null
+            }
           </div>
         </div>
         <div className="column ">
@@ -116,8 +114,13 @@ const Blog = (props) => {
   )
 
 }
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-export default connect(null,
+export default connect(mapStateToProps,
   {
     onLikeBlog,
     onRemoveBlog,

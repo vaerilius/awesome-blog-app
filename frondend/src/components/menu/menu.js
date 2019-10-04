@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const Navbar = () => {
+const Navbar = (props) => {
+
+  
+
   return (
 
     <div className="ui fixed inverted main menu">
@@ -19,9 +23,14 @@ const Navbar = () => {
       <Link to="/users">Users</Link>
       </div>
       <div className="right menu">
+
     <div className="ui item">
-    <Link to="/login">Login or logout</Link>
+      {!props.user ? <Link to="/login">Login</Link> : null}
+      {!props.user ? <Link to="/login">Sign up</Link> : null}
+      {props.user ? <img className="ui avatar image" alt="" src={props.user.picture} />: null}
+      {props.user ? <span>{props.user.name}</span>: null}
     </div>
+
   </div>
     
 </div>
@@ -31,5 +40,10 @@ const Navbar = () => {
 
   )
 }
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-export default Navbar
+export default connect(mapStateToProps)(Navbar)

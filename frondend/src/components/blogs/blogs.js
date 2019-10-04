@@ -13,16 +13,19 @@ const Blogs = (props) => {
         <div className="column">
           <div className="ui segment">
             <h2>Blogs / pictures</h2>
+            {props.user
+            ?
             <Togglable buttonLabel='Create new Blog' ref={newBlogRef}>
-              <NewBlogForm newBlogRef={newBlogRef} />
-              
-            </Togglable>
+            <NewBlogForm newBlogRef={newBlogRef} />
+          </Togglable>
+          : null
+            }
+
           </div>
         </div>
 
       </div>
       {props.blogs.map(blog =>
-
         <div className="ui small images rounded" key={blog.id}>
           <BlosListItem blog={blog} />
         </div>
@@ -33,7 +36,8 @@ const Blogs = (props) => {
 
 const mapStateToProps = state => {
   return {
-    blogs: state.blogs
+    blogs: state.blogs,
+    user: state.user
   }
 }
 

@@ -31,7 +31,6 @@ export const onLikeBlog = blog => {
   return async dispatch => {
 
     const newBlog = { ...blog, likes: blog.likes + 1 }
-
     const updatedBlog = await blogService.updateBlog(blog.id, newBlog)
     dispatch({
       type: 'LIKE_BLOG',
@@ -51,8 +50,8 @@ export const onAddBlog = (data) => {
 }
 export const onRemoveBlog = (id) => {
   return async dispatch => {
-   const response = await blogService.removeBlog(id)
-   console.log(response)
+  await blogService.removeBlog(id)
+
    dispatch({
      type: 'REMOVE_BLOG',
      id

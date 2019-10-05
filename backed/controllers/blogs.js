@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 blogsRouter.get('/', async (request, response, next) => {
     const blogs = await Blog.find({})
-        .populate('user', { username: 1, name: 1 })
+        .populate('user', { username: 1, name: 1, picture: 1 })
     response.json(blogs.map(blog => blog.toJSON()))
 
 })
@@ -33,7 +33,7 @@ blogsRouter.post('/', async (request, response, next) => {
         const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
         if (!request.token || !decodedToken.id) {
-            return response.status(401).json({ error: 'token missing or invalid' })
+            response.status(401).json({ error: 'token missing or invalid' })
         }
 
         const user = await User.findById(decodedToken.id)
@@ -45,7 +45,7 @@ blogsRouter.post('/', async (request, response, next) => {
             author: body.author,
             url: body.url,
             likes: 0,
-            user: user._id
+            user: user
         })
 
         const savedBlog = await blog.save()
@@ -83,14 +83,13 @@ blogsRouter.put('/:id', async (request, response, next) => {
     const blog = {
         title: body.title,
         description: body.description,
-        author: body.author,
         url: body.url,
-        likes: body.likes
+        likes: body.likes,
     }
 
     try {
-       const updatedNote = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-       response.json(updatedNote.toJSON())
+       const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true }).populate('user', { username: 1, name: 1, picture: 1 })
+       response.json(updatedBlog.toJSON())
     } catch (error) {
         next(error)
     }
@@ -100,6 +99,7 @@ blogsRouter.post('/:id/comments', async (request, response, next) => {
     //https://docs.mongodb.com/manual/reference/operator/update/push/
     try {
         const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body.comment } }, { new: true })
+        .populate('user', { username: 1, name: 1, picture: 1 })
        response.json(updatedBlog.toJSON())
  
     } catch (error) {

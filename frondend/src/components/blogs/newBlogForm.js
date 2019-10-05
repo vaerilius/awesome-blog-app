@@ -12,7 +12,6 @@ const NewBlog= (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(title.value)
 
     const newBlog = {
       title: title.value,

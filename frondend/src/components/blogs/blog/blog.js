@@ -10,7 +10,12 @@ const Blog = (props) => {
 
 
   const like = () => props.onLikeBlog(props.blog)
-  const remove = () => props.onRemoveBlog(props.blog.id)
+  const remove = () => {
+    if (window.confirm("Do you really want to remove so nice picture")) { 
+      props.onRemoveBlog(props.blog.id)
+    }
+    
+  }
 
   if (props.blog === undefined) {
     return <h2>loading</h2>
@@ -23,10 +28,12 @@ const Blog = (props) => {
 
   return (
     <div className="ui vertically divided grid centered">
-      <div className="ui large header ">Title: {props.blog.title}</div>
       <div className="two column row ">
         <div className="column">
           <div className="ui fluid card centered ">
+            <div className="content">
+              <div className="header">Title: {props.blog.title}</div>
+            </div>
             <div className="image" >
               <Modal
                 trigger={
@@ -34,37 +41,48 @@ const Blog = (props) => {
                 <Modal.Content image>
                   <Image wrapped size='huge' src={props.blog.url} />
                 </Modal.Content>
-
               </Modal>
             </div>
-            <div className="ui button disabled">
-              {props.blog.likes} Likes
-                </div>
-            {props.user ?
+            <div className="content">
+              <span className="right floated">
+                <i className="heart outline like icon"></i>
+                {props.blog.likes} Likes
+              </span>
+              <i className="comment icon"></i>
+              {props.blog.comments.length} comments
+            </div>
+            {props.user
+              ?
               <button className="ui button"
                 onClick={like}>
                 <i className="heart icon"></i>
                 Like
-              </button> &&
-              <div className="extra content">
-                <div className="ui transparent icon input">
-                  <input
-                    placeholder="Comment.."
-                    {...comment}
-                  />
-                </div>
-              </div> &&
-              <button className="ui button" onClick={handleComment}>
-                <i className="comment icon"></i>
-                Comment
-              </button> &&
+              </button>
+              : null
+            }
+            {props.user
+              ?
+              <div className="ui fluid icon input">
+                <input
+                  placeholder="Comment.."
+                  {...comment}
+                />
+                <button className="ui button" onClick={handleComment}>
+                  <i className="comment icon"></i>
+                  Comment
+            </button>
+              </div>
+              : null
+            }
+            {props.user
+              ?
               <Link
                 to={"/blogs"}
                 className={"ui button"}
                 onClick={remove}>
                 <i className="trash icon"></i>
                 Remove
-              </Link>
+          </Link>
               : null
             }
           </div>
@@ -73,18 +91,14 @@ const Blog = (props) => {
           <div className="ui fluid card">
             <div className="content">
               <div className="center aligned header">
-                <i className="user large icon"></i>
+                <Image wrapped size='tiny' src={props.blog.user.picture} />
                 <h3>
-                  {props.blog.author}
-
+                  {props.blog.user.name}
                 </h3>
               </div>
               <div className="center aligned description">
-
                 <p className="ui header">Description: </p>
                 <p>{props.blog.description}</p>
-
-
               </div>
             </div>
             <div className="extra content">
@@ -99,20 +113,16 @@ const Blog = (props) => {
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
       <Link to={'/blogs'}>
         <Button primary>
           Back to blogs <Icon name='step backward' />
         </Button>
       </Link>
-
     </div>
 
   )
-
 }
 const mapStateToProps = state => {
   return {

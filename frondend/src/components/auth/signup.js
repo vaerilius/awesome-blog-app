@@ -1,20 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { signUp } from '../../reducers/users.reducer';
 import { useField } from '../../hooks/index'
 import { Form, Input } from 'semantic-ui-react-form-validator'
 import { Button } from 'semantic-ui-react'
 
-
-
-
 const Signup = (props) => {
   const [username, resetUsername] = useField('text')
+  const [name, resetName] = useField('text')
   const [picture, resetPicture] = useField('text')
   const [password, resetPassword] = useField('password')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
+    const newUser = {
+      username: username.value,
+      password: password.value,
+      picture: picture.value,
+      name: name.value
+    }
+    props.signUp(newUser)
 
+    resetName('')
     resetPicture('')
     resetPassword('')
     resetUsername('')
@@ -33,39 +39,40 @@ const Signup = (props) => {
         <div className="field">
           <Input
             label="Username"
-            validators={['required', 'minStringLength: 4', 'isEmpty']}
-            errorMessages={
-              [
-                'username is required',
-                'min length 4'
-              ]
-            }
             {...username} />
         </div>
         <div className="field">
           <Input
             label="Password"
-            validators={['required', 'minStringLength: 4', 'isEmpty']}
-            errorMessages={
-              [
-                'password is required',
-                'min length 4'
-              ]
-            }
             {...password} />
         </div>
         <div className="field">
           <Input
+            label="Name"
+            {...name} />
+        </div>
+        <div className="field">
+          <Input
             label="Picture"
-            validators={['required']}
-            errorMessages={['picture is required']}
             {...picture} />
         </div>
-
-        <Button className="ui button submit" type="submit">Sign Up</Button>
+        <Button
+          className="ui button submit"
+          type="submit">
+          Sign Up
+        </Button>
       </Form>
     </div>
   )
 }
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-export default Signup
+
+export default connect(
+  mapStateToProps,
+  { signUp }
+)(Signup)

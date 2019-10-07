@@ -45,8 +45,6 @@ const Navbar = (props) => {
       </div>
     </div>
 
-
-
   )
 }
 const mapStateToProps = state => {

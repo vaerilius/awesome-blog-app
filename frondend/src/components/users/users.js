@@ -5,7 +5,6 @@ import User from './user/userListItem'
 const UsersListItem = (props) => {
 
   if (!props.users) {
-
     return (
       <div> loading...</div>
     )
@@ -21,7 +20,7 @@ const UsersListItem = (props) => {
         </div>
         <div className="ui huge middle aligned list">
           {props.users.map(user =>
-            <User user={user} key={user.id}/>
+            <User user={ user } key={ user.id }/>
           )}
         </div>
       </div>

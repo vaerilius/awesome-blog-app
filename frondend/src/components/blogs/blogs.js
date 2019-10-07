@@ -14,11 +14,11 @@ const Blogs = (props) => {
           <div className="ui segment">
             <h2>Blogs / pictures</h2>
             {props.user
-            ?
-            <Togglable buttonLabel='Create new Blog' ref={newBlogRef}>
-            <NewBlogForm newBlogRef={newBlogRef} />
-          </Togglable>
-          : null
+              ?
+              <Togglable buttonLabel='Create new Blog' ref={newBlogRef}>
+                <NewBlogForm newBlogRef={newBlogRef} />
+              </Togglable>
+              : null
             }
 
           </div>

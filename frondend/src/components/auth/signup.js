@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { signUp } from '../../reducers/users.reducer';
+import { signUp } from '../../reducers/users.reducer'
 import { useField } from '../../hooks/index'
 import { Form, Input } from 'semantic-ui-react-form-validator'
 import { Button } from 'semantic-ui-react'
@@ -31,7 +31,7 @@ const Signup = (props) => {
     <div className="ui raised very padded text segment">
       <h1 className="ui center aligned icon header">
         Sign Up
-            <i className="images outline icon"></i>
+        <i className="images outline icon"></i>
       </h1>
 
       <Form

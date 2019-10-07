@@ -24,9 +24,11 @@ module.exports = {
   'rules': {
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn",
+    "react/prop-types": 0,
     'indent': [
         'error',
-        2
+        2,
+        { "SwitchCase": 1 }
     ],
     'linebreak-style': [
         'error',

@@ -18,28 +18,28 @@ const Login = (props) => {
   }
 
   return (
-    <div style={{ paddingTop: "20px" }}>
+    <div style={{ paddingTop: '20px' }}>
       <h2 className="ui center aligned icon header">
         <i className="unlock icon"></i>
         Login
       </h2>
 
       <form className="ui form" onSubmit={handleSubmit}>
-        <div className="field">
+        <div className='field'>
           <label>Username</label>
           <input {...username} />
         </div>
-        <div className="field">
+        <div className='field'>
           <label>Password</label>
           <input {...password} />
         </div>
         {!props.user
-        ?
-        <button className="ui button submit" type="submit">
-        Login
-      </button>
-      : <Redirect to="/blogs" />
-      }
+          ?
+          <button className='ui button submit' type='submit'>
+            Login
+          </button>
+          : <Redirect to="/blogs" />
+        }
       </form>
     </div>
 

@@ -12,7 +12,7 @@ const reducer = (state = [], action) => {
       return state.filter(blog => blog.id !== action.id)
     case 'COMMENT_BLOG':
       return [...state]
-      .map(blog => blog.id !== action.blog.id ? blog : action.blog)
+        .map(blog => blog.id !== action.blog.id ? blog : action.blog)
     default:
       return state
   }
@@ -50,12 +50,12 @@ export const onAddBlog = (data) => {
 }
 export const onRemoveBlog = (id) => {
   return async dispatch => {
-  await blogService.removeBlog(id)
+    await blogService.removeBlog(id)
 
-   dispatch({
-     type: 'REMOVE_BLOG',
-     id
-   })
+    dispatch({
+      type: 'REMOVE_BLOG',
+      id
+    })
   }
 }
 export const onAddComment = (comment, id) => {

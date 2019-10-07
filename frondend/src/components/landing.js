@@ -1,9 +1,11 @@
 import React from 'react'
+import Signup from './auth/signup'
 
 const Landing = () => {
   
 
   return (
+    <>
     <div className="ui raised very padded text segment">
       <h1 className="ui center aligned icon header">
         Awesome Blog App
@@ -20,8 +22,13 @@ const Landing = () => {
         Sed pharetra diam nulla, vitae placerat dolor lacinia vel.
         Suspendisse porttitor aliquet interdum.
       </p>
+     
+
 
     </div>
+    <Signup />
+    </>
+
 
   )
 

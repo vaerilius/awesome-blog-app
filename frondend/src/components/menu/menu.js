@@ -1,8 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { logout } from '../../reducers/user.reducer'
 
 const Navbar = (props) => {
+
+  const handleLogout = () => props.logout()
 
   return (
 
@@ -21,7 +24,6 @@ const Navbar = (props) => {
           <Link to="/users">Users</Link>
         </div>
         <div className="right menu">
-
           <div className="ui item">
             {!props.user ? <Link to="/login">Login</Link> : null}
           </div>
@@ -29,6 +31,13 @@ const Navbar = (props) => {
           <div className="ui item">
             {props.user ? <img className="ui avatar image" alt="" src={props.user.picture} /> : null}
             {props.user ? <span>{props.user.name}</span> : null}
+          </div>
+          <div className="ui item">
+            {props.user ?
+              <div onClick={handleLogout}>
+                Logout
+              </div>
+              : <Redirect to="/" />}
           </div>
 
         </div>
@@ -46,4 +55,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Navbar)
+export default connect(mapStateToProps, { logout })(Navbar)

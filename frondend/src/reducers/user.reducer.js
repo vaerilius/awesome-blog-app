@@ -9,7 +9,7 @@ const reducer = (state = null, action) => {
     case 'LOGIN_USER':
     return action.user
     case 'LOGOUT_USER':
-      return state
+      return null
     default:
       return state
   }
@@ -49,6 +49,16 @@ export const login = (loginData) => {
     } catch (error) {
       console.log(error)
     }
+  }
+}
+
+export const logout = () => {
+  return async dispatch => {
+    blogsService.destroyToken()
+    window.localStorage.removeItem('user')
+    dispatch({
+      type: 'LOGOUT_USER'
+    })
   }
 }
 

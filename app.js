@@ -9,7 +9,6 @@ const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const logger = require('./utils/logger')
-app.use(express.static('build'))
 
 
 logger.info('connecting to', config.MONGODB_URI)
@@ -23,6 +22,8 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
     })
 
 app.use(cors())
+app.use(express.static('build'))
+
 
 app.use(bodyParser.json())
 app.use(middleware.tokenExtractor)

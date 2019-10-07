@@ -4,5 +4,5 @@
 ### Backend & Database: NodeJS & MongoDB
 #### version 2.0: login, bloglist, add new blog, single blog view, delete, like, comment a blog works.
 
-#### hours spended = approximately 16h
+#### hours spended = approximately 20h
 

@@ -10,9 +10,10 @@ import User from './components/users/user/user'
 import Navbar from './components/menu/menu'
 import { Container } from 'semantic-ui-react'
 
+
 import {
   BrowserRouter as Router,
-  Route
+  Route,  withRouter
 } from 'react-router-dom'
 import Landing from './components/landing'
 import Login from './components/auth/login'
@@ -26,11 +27,7 @@ const App = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!props.users) {
-    return (
-      <div>loading</div>
-    )
-  }
+
   return (
     <>
       <Router>
@@ -40,9 +37,9 @@ const App = (props) => {
           <Route exact path='/blogs/:id' render={({ match }) =>
             <Blog blog={props.blogs.find(b => b.id === match.params.id)} />
           } />
-          <Route exact path='/blogs' render={() => <Blogs />} />
-          <Route exact path='/login' render={() => <Login />} />
-          <Route exact path='/users' render={() => <Users />} />
+          <Route exact path='/blogs/' render={() => <Blogs />} />
+          <Route exact path='/login/' render={() => <Login />} />
+          <Route exact path='/users/' render={() => <Users />} />
           {props.users
             ?
             <Route exact path='/users/:id' render={({ match }) =>
@@ -56,6 +53,7 @@ const App = (props) => {
     </>
   )
 }
+const Test = withRouter(App)
 
 const mapStateToProps = state => {
   console.log(state)

@@ -5,6 +5,17 @@ import BlosListItem from './blogListItem'
 import Togglable from '../togglable'
 
 const Blogs = (props) => {
+
+  if (!props.blogs.length > 0) {
+    return (
+      <div className="ui segment" style={{ padding: '100px' }}>
+        <div className="ui active inverted dimmer">
+          <div className="ui text huge loader">Blogs Loading...</div>
+        </div>
+        <p></p>
+      </div>
+    )
+  }
   const newBlogRef = React.createRef()
   return (
 

@@ -6,7 +6,12 @@ const UsersListItem = (props) => {
 
   if (!props.users) {
     return (
-      <div> loading...</div>
+      <div className="ui segment" style={{ padding: '100px' }}>
+        <div className="ui active inverted dimmer">
+          <div className="ui huge text loader">Users Loading...</div>
+        </div>
+        <p></p>
+      </div>
     )
   }
 
@@ -20,7 +25,7 @@ const UsersListItem = (props) => {
         </div>
         <div className="ui huge middle aligned list">
           {props.users.map(user =>
-            <User user={ user } key={ user.id }/>
+            <User user={user} key={user.id} />
           )}
         </div>
       </div>

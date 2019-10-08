@@ -67,14 +67,13 @@ const Blog = (props) => {
                   placeholder="Comment.."
                   {...comment}
                 />
-                <button className="ui button" onClick={handleComment}>
-                  <i className="comment icon"></i>
-                  Comment
-                </button>
+                <i className="inverted circular comment link icon"
+                  onClick={handleComment}>
+                </i>
               </div>
               : null
             }
-            {props.user
+            {props.user && props.blog.user.name === props.user.name
               ?
               <Link
                 to={'/blogs'}

@@ -22,7 +22,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
     })
 
 app.use(cors())
-const frontend = path.join(__dirname, '/build');
+const frontend = path.join(__dirname, 'build');
 app.use('/', express.static(frontend));
 app.use(function (req, res, next) {
     res.sendFile(path.join(frontend, 'index.html'));

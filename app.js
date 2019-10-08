@@ -9,6 +9,7 @@ const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const logger = require('./utils/logger')
+app.use(express.static('build'))
 
 
 logger.info('connecting to', config.MONGODB_URI)
@@ -22,11 +23,6 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
     })
 
 app.use(cors())
-const frontend = path.join(__dirname, 'build');
-app.use('/', express.static(frontend));
-app.use(function (req, res, next) {
-    res.sendFile(path.join(frontend, 'index.html'));
-});
 
 
 

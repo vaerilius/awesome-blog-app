@@ -1,5 +1,4 @@
 const config = require('./utils/config')
-const path = require('path');
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
@@ -24,10 +23,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
 app.use(cors())
 
 app.use(bodyParser.json())
-// app.use(express.static('build'))
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/build/index.html'));
-  });
+app.use(express.static('build'))
 
 app.use(middleware.tokenExtractor)
 app.use(middleware.requestLogger)

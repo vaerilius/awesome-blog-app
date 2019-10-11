@@ -1,5 +1,5 @@
-import blogsService from "../services/blogs.service"
-import userService from "../services/user.service"
+import blogsService from '../services/blogs.service'
+import userService from '../services/user.service'
 
 const reducer = (state = null, action) => {
 
@@ -7,9 +7,9 @@ const reducer = (state = null, action) => {
     case 'INIT_USER':
       return action.user
     case 'LOGIN_USER':
-    return action.user
+      return action.user
     case 'LOGOUT_USER':
-      return state
+      return null
     default:
       return state
   }
@@ -28,7 +28,6 @@ export const initializeUser = () => {
         type: 'INIT_USER',
         user: null
       })
-      
     }
   }
 }
@@ -44,11 +43,20 @@ export const login = (loginData) => {
           type: 'LOGIN_USER',
           user: user
         })
-      } 
-
+      }
     } catch (error) {
       console.log(error)
     }
+  }
+}
+
+export const logout = () => {
+  return async dispatch => {
+    blogsService.destroyToken()
+    window.localStorage.removeItem('user')
+    dispatch({
+      type: 'LOGOUT_USER'
+    })
   }
 }
 

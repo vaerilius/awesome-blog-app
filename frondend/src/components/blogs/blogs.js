@@ -5,6 +5,17 @@ import BlosListItem from './blogListItem'
 import Togglable from '../togglable'
 
 const Blogs = (props) => {
+
+  if (!props.blogs.length > 0) {
+    return (
+      <div className="ui segment" style={{margin: "7rem"}}>
+        <div className="ui active inverted dimmer">
+          <div className="ui text huge loader">Blogs Loading...</div>
+        </div>
+        <p></p>
+      </div>
+    )
+  }
   const newBlogRef = React.createRef()
   return (
 
@@ -14,11 +25,11 @@ const Blogs = (props) => {
           <div className="ui segment">
             <h2>Blogs / pictures</h2>
             {props.user
-            ?
-            <Togglable buttonLabel='Create new Blog' ref={newBlogRef}>
-            <NewBlogForm newBlogRef={newBlogRef} />
-          </Togglable>
-          : null
+              ?
+              <Togglable buttonLabel='Create new Blog' ref={newBlogRef}>
+                <NewBlogForm newBlogRef={newBlogRef} />
+              </Togglable>
+              : null
             }
 
           </div>
@@ -35,8 +46,9 @@ const Blogs = (props) => {
 }
 
 const mapStateToProps = state => {
+    const sortByLikes = (b1, b2) => b2.likes - b1.likes
   return {
-    blogs: state.blogs,
+    blogs: state.blogs.sort(sortByLikes),
     user: state.user
   }
 }

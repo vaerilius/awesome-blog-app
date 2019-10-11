@@ -1,6 +1,7 @@
 import React from 'react'
-import { useField } from '../../hooks/index';
-import { connect } from 'react-redux';
+import { useField } from '../../hooks/index'
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { login } from '../../reducers/user.reducer'
 
 const Login = (props) => {
@@ -10,34 +11,45 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.login( {username: username.value, password: password.value} )
-    
+    props.login({ username: username.value, password: password.value })
+
     resetPassword('')
     resetUsername('')
   }
 
   return (
-    <div style={{paddingTop: "20px"}}>
+    <div style={{ paddingTop: '20px' }}>
       <h2 className="ui center aligned icon header">
         <i className="unlock icon"></i>
         Login
       </h2>
 
       <form className="ui form" onSubmit={handleSubmit}>
-        <div className="field">
+        <div className='field'>
           <label>Username</label>
-          <input { ...username }  />
+          <input {...username} />
         </div>
-        <div className="field">
+        <div className='field'>
           <label>Password</label>
-          <input { ...password }/>
+          <input {...password} />
         </div>
-
-        <button className="ui button submit" type="submit">Login</button>
+        {!props.user
+          ?
+          <button className='ui button submit' type='submit'>
+            Login
+          </button>
+          : <Redirect to="/" />
+        }
       </form>
     </div>
 
   )
 }
 
-export default connect(null, { login })(Login)
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, { login })(Login)

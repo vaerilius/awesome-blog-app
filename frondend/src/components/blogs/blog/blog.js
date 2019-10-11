@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { onLikeBlog, onRemoveBlog, onAddComment } from '../../../reducers/blogs.reducer'
-import { useField } from '../../../hooks/index';
+import { useField } from '../../../hooks/index'
 import { Button, Icon, Image, Modal } from 'semantic-ui-react'
 
 const Blog = (props) => {
@@ -11,10 +11,10 @@ const Blog = (props) => {
 
   const like = () => props.onLikeBlog(props.blog)
   const remove = () => {
-    if (window.confirm("Do you really want to remove so nice picture")) { 
+    if (window.confirm('Do you really want to remove so nice picture')) {
       props.onRemoveBlog(props.blog.id)
     }
-    
+
   }
 
   if (props.blog === undefined) {
@@ -67,22 +67,21 @@ const Blog = (props) => {
                   placeholder="Comment.."
                   {...comment}
                 />
-                <button className="ui button" onClick={handleComment}>
-                  <i className="comment icon"></i>
-                  Comment
-            </button>
+                <i className="inverted circular comment link icon"
+                  onClick={handleComment}>
+                </i>
               </div>
               : null
             }
-            {props.user
+            {props.user && props.blog.user.name === props.user.name
               ?
               <Link
-                to={"/blogs"}
-                className={"ui button"}
+                to={'/blogs'}
+                className={'ui button'}
                 onClick={remove}>
                 <i className="trash icon"></i>
                 Remove
-          </Link>
+              </Link>
               : null
             }
           </div>

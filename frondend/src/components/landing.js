@@ -5,7 +5,7 @@ const Landing = () => {
 
   return (
     <>
-      <div className="ui raised very padded text segment">
+      <div className="ui raised very padded text segment" style={{margin: "7rem"}}>
         <h1 className="ui center aligned icon header">
           Awesome Blog App
           <i className="images outline icon"></i>

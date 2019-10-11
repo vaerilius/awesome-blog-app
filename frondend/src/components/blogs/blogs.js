@@ -45,9 +45,11 @@ const Blogs = (props) => {
   )
 }
 
+
 const mapStateToProps = state => {
+    const sortByLikes = (b1, b2) => b2.likes - b1.likes
   return {
-    blogs: state.blogs,
+    blogs: state.blogs.sort(sortByLikes),
     user: state.user
   }
 }

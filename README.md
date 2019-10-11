@@ -1,5 +1,6 @@
 # awesome-blog-app
 ## https://vaerilius.herokuapp.com/
+### Deploy vesion 2.0
 ### Application was made at Laurea University JavaScript course
 ### Frontend: React (Hooks, redux)
 ### Backend & Database: NodeJS & MongoDB

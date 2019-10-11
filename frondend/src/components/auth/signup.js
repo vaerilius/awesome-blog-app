@@ -28,7 +28,7 @@ const Signup = (props) => {
 
 
   return (
-    <div className="ui raised very padded text segment">
+    <div className="ui raised very padded text segment" style={{margin: "7rem"}}>
       <h1 className="ui center aligned icon header">
         Sign Up
         <i className="images outline icon"></i>

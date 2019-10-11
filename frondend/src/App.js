@@ -27,29 +27,30 @@ const App = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-
   return (
     <>
-      <HashRouter>
-        <Container style={{ margin: '3rem' }}>
-          <Navbar />
-          <Route exact path="/" render={() => <Landing />} />
-          <Route exact path='/blogs/:id' render={({ match }) =>
-            <Blog blog={props.blogs.find(b => b.id === match.params.id)} />
-          } />
-          <Route exact path='/blogs/' render={() => <Blogs />} />
-          <Route exact path='/login/' render={() => <Login />} />
-          <Route exact path='/users/' render={() => <Users />} />
-          {props.users
-            ?
-            <Route exact path='/users/:id' render={({ match }) =>
-              <User user={props.users.find(u => u.id === match.params.id)} />
+      <Router>
+        <HashRouter>
+          <Container style={{ margin: '3rem' }}>
+            <Navbar />
+            <Route exact path="/" render={() => <Landing />} />
+            <Route exact path='/blogs/:id' render={({ match }) =>
+              <Blog blog={props.blogs.find(b => b.id === match.params.id)} />
             } />
-            :
-            <div> loading</div>
-          }
-        </Container>
-      </HashRouter>
+            <Route exact path='/blogs/' render={() => <Blogs />} />
+            <Route exact path='/login/' render={() => <Login />} />
+            <Route exact path='/users/' render={() => <Users />} />
+            {props.users
+              ?
+              <Route exact path='/users/:id' render={({ match }) =>
+                <User user={props.users.find(u => u.id === match.params.id)} />
+              } />
+              :
+              <div> loading</div>
+            }
+          </Container>
+        </HashRouter>
+      </Router>
     </>
   )
 }

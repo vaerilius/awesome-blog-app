@@ -38,7 +38,7 @@ const Login = (props) => {
           <button className='ui button submit' type='submit'>
             Login
           </button>
-          : <Redirect to="/blogs" />
+          : <Redirect to="/" />
         }
       </form>
     </div>

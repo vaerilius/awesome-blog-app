@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Signup from './auth/signup'
 
-const Landing = () => {
+const Landing = (props) => {
 
   return (
     <>
@@ -22,13 +23,21 @@ const Landing = () => {
           Suspendisse porttitor aliquet interdum.
         </p>
       </div>
-      {/* <Signup /> */}
-      {/* test push from laptop */}
+      {!props.user
+      ?
+      <Signup /> 
+      : null
+    }
     </>
 
 
   )
 
 }
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-export default Landing
+export default connect(mapStateToProps)(Landing)

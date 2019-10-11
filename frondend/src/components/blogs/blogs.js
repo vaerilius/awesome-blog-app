@@ -8,7 +8,7 @@ const Blogs = (props) => {
 
   if (!props.blogs.length > 0) {
     return (
-      <div className="ui segment" style={{ padding: '100px' }}>
+      <div className="ui segment" style={{margin: "7rem"}}>
         <div className="ui active inverted dimmer">
           <div className="ui text huge loader">Blogs Loading...</div>
         </div>
@@ -44,7 +44,6 @@ const Blogs = (props) => {
     </div>
   )
 }
-
 
 const mapStateToProps = state => {
     const sortByLikes = (b1, b2) => b2.likes - b1.likes

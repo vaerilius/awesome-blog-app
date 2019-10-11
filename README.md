@@ -6,5 +6,5 @@
 #### version 2.0: login, bloglist, add new blog, single blog view, delete, like, comment a blog works.
 
 
-#### hours spended = approximately 25h
+#### hours spended = approximately 27h
 

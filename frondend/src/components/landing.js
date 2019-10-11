@@ -22,7 +22,8 @@ const Landing = () => {
           Suspendisse porttitor aliquet interdum.
         </p>
       </div>
-      <Signup />
+      {/* <Signup /> */}
+      {/* test push from laptop */}
     </>
 
 

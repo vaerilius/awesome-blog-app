@@ -35,7 +35,8 @@ const UsersListItem = (props) => {
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    users: state.users,
+    blogs: state.blogs
     // .sort((u1, u2) => u2.blogs.length - u1.blogs.length)
   }
 }

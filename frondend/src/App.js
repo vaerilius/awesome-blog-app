@@ -13,7 +13,7 @@ import { Container } from 'semantic-ui-react'
 
 import {
   BrowserRouter as Router,
-  Route, HashRouter
+  Route, BrowserRouter
 } from 'react-router-dom'
 import Landing from './components/landing'
 import Login from './components/auth/login'
@@ -30,7 +30,7 @@ const App = (props) => {
   return (
     <>
       <Router>
-        <HashRouter>
+        <BrowserRouter>
           <Container style={{ margin: '3rem' }}>
             <Navbar />
             <Route exact path="/" render={() => <Landing />} />
@@ -49,7 +49,7 @@ const App = (props) => {
               <div> loading</div>
             }
           </Container>
-        </HashRouter>
+        </BrowserRouter>
       </Router>
     </>
   )

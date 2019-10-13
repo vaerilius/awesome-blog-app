@@ -21,9 +21,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
     })
 
 app.use(cors())
-
 app.use(bodyParser.json())
-app.use(express.static('build'))
 
 app.use(middleware.tokenExtractor)
 app.use(middleware.requestLogger)

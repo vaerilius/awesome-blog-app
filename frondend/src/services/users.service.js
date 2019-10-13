@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/users/'
+const baseUrl = 'https://stark-ocean-35945.herokuapp.com/api/users'
 
 const signUpUser = async (userData) => {
   const response = await axios.post(baseUrl, userData)

@@ -10,11 +10,10 @@ import User from './components/users/user/user'
 import Navbar from './components/menu/menu'
 import { Container } from 'semantic-ui-react'
 
-
 import {
-  BrowserRouter as Router,
-  Route, BrowserRouter
-} from 'react-router-dom'
+    BrowserRouter as Router,
+    Route, Link, Redirect, withRouter
+  } from 'react-router-dom'
 import Landing from './components/landing'
 import Login from './components/auth/login'
 
@@ -30,7 +29,6 @@ const App = (props) => {
   return (
     <>
       <Router>
-        <BrowserRouter>
           <Container style={{ margin: '3rem' }}>
             <Navbar />
             <Route exact path="/" render={() => <Landing />} />
@@ -49,7 +47,6 @@ const App = (props) => {
               <div> loading</div>
             }
           </Container>
-        </BrowserRouter>
       </Router>
     </>
   )

@@ -1,5 +1,5 @@
 # awesome-blog-app
-## https://vaerilius.herokuapp.com/
+### https://awesome-blog-app2.herokuapp.com/
 ### Deploy vesion 2.0
 ### Application was made at Laurea University JavaScript course
 ### Frontend: React (Hooks, redux)
@@ -7,5 +7,5 @@
 #### version 2.0: login, bloglist, add new blog, single blog view, delete, like, comment a blog works.
 
 
-#### hours spended = approximately 27h
+#### hours spended = approximately 29h
 

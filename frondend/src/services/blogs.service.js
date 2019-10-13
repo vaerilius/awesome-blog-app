@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/blogs'
+const baseUrl = 'https://stark-ocean-35945.herokuapp.com/api/blogs'
 
 let token = null
 

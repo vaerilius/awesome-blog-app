@@ -9,42 +9,39 @@ const Navbar = (props) => {
 
   return (
 
-    <div className="ui fixed inverted main menu">
-      <div className="ui container">
-        <div className="launch icon item">
-          <i className="image icon"></i>
-        </div>
-        <div className="item">
-          <Link to="/">Home</Link>
-        </div>
-        <div className="item">
-          <Link to="/blogs">blogs</Link>
-        </div>
-        <div className="item">
-          <Link to="/users">Users</Link>
-        </div>
-        <div className="right menu">
+    <div className="ui small fixed menu">
+      <div className="launch icon item">
+        <Link to="/"> <i className="image icon"></i></Link>
+      </div>
+      <div className="item">
+        <Link to="/blogs"><i className="images icon"></i></Link>
+      </div>
+      <div className="item">
+        <Link to="/users"><i className="users icon"></i></Link>
+      </div>
+      <div className="right menu">
+        {!props.user
+          ?
           <div className="ui item">
-            {!props.user ? <Link to="/login">Login</Link> : null}
+            <Link to="/login">Login</Link>
           </div>
-
-          <div className="ui item">
-            {props.user ? <img className="ui avatar image" alt="" src={props.user.picture} /> : null}
-            {props.user ? <span>{props.user.name}</span> : null}
-          </div>
-          <div className="ui item">
-            {props.user ?
-              <div onClick={handleLogout}>
-                Logout
-              </div>
-              : <Redirect to="/" />}
-          </div>
-
-        </div>
-
+          :
+          <>
+            <div className="ui item">
+              <img className="ui avatar image" alt="" src={props.user.picture} />
+              <span>{props.user.username}</span>
+            </div>
+            <div className="ui item">
+              {props.user ?
+                <div onClick={handleLogout}>
+                  Logout
+                      </div>
+                : <Redirect to="/" />}
+            </div>
+          </>
+        }
       </div>
     </div>
-
   )
 }
 const mapStateToProps = state => {

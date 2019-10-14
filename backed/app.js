@@ -10,7 +10,7 @@ const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const logger = require('./utils/logger')
 
-app.use(express.static('build'))
+// app.use(express.static('build'))
 
 
 logger.info('connecting to', config.MONGODB_URI)

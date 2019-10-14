@@ -8,18 +8,15 @@ const Blogs = (props) => {
 
   if (!props.blogs.length > 0) {
     return (
-      <div className="ui segment" style={{margin: "7rem"}}>
         <div className="ui active inverted dimmer">
           <div className="ui text huge loader">Blogs Loading...</div>
         </div>
-        <p></p>
-      </div>
     )
   }
   const newBlogRef = React.createRef()
   return (
 
-    <div className="ui grid container center aligned">
+    <div className="ui grid  center aligned">
       <div className="center aligned one column row">
         <div className="column">
           <div className="ui segment">
@@ -31,10 +28,8 @@ const Blogs = (props) => {
               </Togglable>
               : null
             }
-
           </div>
         </div>
-
       </div>
       {props.blogs.map(blog =>
         <div className="ui small images rounded" key={blog.id}>

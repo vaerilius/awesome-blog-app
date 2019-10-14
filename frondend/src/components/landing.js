@@ -6,7 +6,7 @@ const Landing = (props) => {
 
   return (
     <>
-      <div className="ui raised very padded text segment" style={{margin: "7rem"}}>
+      <div className="ui raised very padded text segment" >
         <h1 className="ui center aligned icon header">
           Awesome Blog App
           <i className="images outline icon"></i>
@@ -18,7 +18,8 @@ const Landing = (props) => {
           Quisque lobortis vitae risus in porta.
           Aliquam viverra volutpat diam, vitae dapibus orci sodales ut.
           Integer interdum lorem sit amet purus blandit congue ac sed tortor.
-          Ut mollis diam purus, a vehicula ante lacinia ac. Duis in justo tellus              Pellentesque sollicitudin suscipit nunc vel placerat.
+          Ut mollis diam purus, a vehicula ante lacinia ac.
+          Duis in justo tellus Pellentesque sollicitudin suscipit nunc vel placerat.
           Sed pharetra diam nulla, vitae placerat dolor lacinia vel.
           Suspendisse porttitor aliquet interdum.
         </p>
@@ -29,8 +30,6 @@ const Landing = (props) => {
       : null
     }
     </>
-
-
   )
 
 }

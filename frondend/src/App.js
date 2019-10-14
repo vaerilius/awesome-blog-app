@@ -12,7 +12,7 @@ import { Container } from 'semantic-ui-react'
 
 import {
     BrowserRouter as Router,
-    Route, Link, Redirect, withRouter
+    Route
   } from 'react-router-dom'
 import Landing from './components/landing'
 import Login from './components/auth/login'
@@ -29,7 +29,7 @@ const App = (props) => {
   return (
     <>
       <Router>
-          <Container style={{ margin: '3rem' }}>
+          <Container style={{ margin: '5rem' }}>
             <Navbar />
             <Route exact path="/" render={() => <Landing />} />
             <Route exact path='/blogs/:id' render={({ match }) =>

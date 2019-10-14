@@ -13,7 +13,8 @@ const BlogListItem = (props) => {
   return (
     <>
       <Link to={`blogs/${props.blog.id}`}>
-        <img src={props.blog.url} alt={props.blog.url}
+        <img className="bordered image"
+        src={props.blog.url} alt={props.blog.url}
           style={img} />
       </Link>
     </>

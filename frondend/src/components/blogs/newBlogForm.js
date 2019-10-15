@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { onAddBlog } from '../../reducers/blogs.reducer'
+import { initializeUsers} from '../../reducers/users.reducer'
+
 
 import { useField } from '../../hooks/index'
 
@@ -9,18 +11,17 @@ const NewBlog = (props) => {
   const [url, resetUrl] = useField('text')
   const [description, resetDescription] = useField('text')
 
-
   const handleSubmit = (e) => {
     e.preventDefault()
 
     const newBlog = {
       title: title.value,
       url: url.value,
-      author: 'timo testaaja',
       description: description.value
     }
 
     props.onAddBlog(newBlog)
+    props.initializeUsers()
     props.newBlogRef.current.toggleVisibility()
     resetTitle()
     resetUrl()
@@ -55,6 +56,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    onAddBlog
+    onAddBlog,
+    initializeUsers
   }
 )(NewBlog)

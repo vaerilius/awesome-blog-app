@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import User from './user/userListItem'
+import UserListItem from './user/userListItem'
 
 const UsersListItem = (props) => {
 
@@ -24,8 +24,9 @@ const UsersListItem = (props) => {
           </div>
         </div>
         <div className="ui huge middle aligned list">
-          {props.users.map(user =>
-            <User user={user} key={user.id} />
+          {props.users
+          .map(user =>
+            <UserListItem user={user} key={user.id} />
           )}
         </div>
       </div>
@@ -34,8 +35,13 @@ const UsersListItem = (props) => {
 }
 
 const mapStateToProps = state => {
+  let sortedUsers;
+  if (state.users && state.users.length > 0) {
+    sortedUsers = state.users.sort((u1, u2) => u2.blogs.length - u1.blogs.length)
+  }
+
   return {
-    users: state.users,
+    users: sortedUsers,
     blogs: state.blogs
     // .sort((u1, u2) => u2.blogs.length - u1.blogs.length)
   }

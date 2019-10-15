@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { initializeUsers } from '../../../reducers/users.reducer';
 
-const User = ({ user }) => {
+const User = (props) => {
+  
+  useEffect(() => {
+    props.initializeUsers()
+  }, [])
   return (
     <div className="ui centered card" style={{ marginTop: "7rem" }}>
       <div className="image">
-        <img src={user.picture} alt={user.picture} />
+        <img src={props.user.picture} alt={props.user.picture} />
       </div>
       <div className="content">
-        <div className="header">{user.name}</div>
+        <div className="header">{props.user.name}</div>
       </div>
       <div className="content">
         <div className="description">
@@ -21,8 +27,8 @@ const User = ({ user }) => {
       <div className="content">
         <div className="header">
           <i className="image icon"></i>
-          {user.blogs.length} Blogs</div>
-        {user.blogs.map(b =>
+          {props.user.blogs.length} Blogs</div>
+        {props.user.blogs.map(b =>
           <div className="description" key={b.id}>
             <Link to={`/blogs/${b.id}`}>{b.title}</Link>
           </div>
@@ -32,4 +38,7 @@ const User = ({ user }) => {
   )
 }
 
-export default User
+export default connect(
+  null,
+  { initializeUsers }
+  )(User)

@@ -8,9 +8,9 @@ const Blogs = (props) => {
 
   if (!props.blogs.length > 0) {
     return (
-        <div className="ui active inverted dimmer">
-          <div className="ui text huge loader">Blogs Loading...</div>
-        </div>
+      <div className="ui active inverted dimmer">
+        <div className="ui text huge loader">Blogs Loading...</div>
+      </div>
     )
   }
   const newBlogRef = React.createRef()
@@ -41,7 +41,7 @@ const Blogs = (props) => {
 }
 
 const mapStateToProps = state => {
-    const sortByLikes = (b1, b2) => b2.likes - b1.likes
+  const sortByLikes = (b1, b2) => b2.likes - b1.likes
   return {
     blogs: state.blogs.sort(sortByLikes),
     user: state.user

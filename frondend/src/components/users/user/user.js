@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { initializeUsers } from '../../../reducers/users.reducer';
 
 const User = (props) => {
-  
-  useEffect(() => {
-    props.initializeUsers()
-  }, [])
+  if (props.user === undefined) {
+    return null
+  }
+
   return (
-    <div className="ui centered card" style={{ marginTop: "7rem" }}>
+    <div className="ui centered card" style={{ marginTop: '7rem' }}>
       <div className="image">
         <img src={props.user.picture} alt={props.user.picture} />
       </div>
@@ -18,10 +17,10 @@ const User = (props) => {
       </div>
       <div className="content">
         <div className="description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
-        Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
-        Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.
-        Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+          Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
+          Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.
+          Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
         </div>
       </div>
       <div className="content">
@@ -38,7 +37,11 @@ const User = (props) => {
   )
 }
 
-export default connect(
-  null,
-  { initializeUsers }
-  )(User)
+const mapStateToProps = (state, ownProps) => {
+
+  return {
+    user: state.users.find(u => u.id === ownProps.user.id)
+  }
+}
+
+export default connect(mapStateToProps)(User)

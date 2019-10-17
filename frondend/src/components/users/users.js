@@ -25,9 +25,9 @@ const UsersListItem = (props) => {
         </div>
         <div className="ui huge middle aligned list">
           {props.users
-          .map(user =>
-            <UserListItem user={user} key={user.id} />
-          )}
+            .map(user =>
+              <UserListItem user={user} key={user.id} />
+            )}
         </div>
       </div>
     </div>
@@ -35,14 +35,9 @@ const UsersListItem = (props) => {
 }
 
 const mapStateToProps = state => {
-  let sortedUsers;
-  if (state.users && state.users.length > 0) {
-    sortedUsers = state.users.sort((u1, u2) => u2.blogs.length - u1.blogs.length)
-  }
 
   return {
-    users: sortedUsers,
-    blogs: state.blogs
+    users: state.users,
     // .sort((u1, u2) => u2.blogs.length - u1.blogs.length)
   }
 }

@@ -10,8 +10,19 @@ const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const logger = require('./utils/logger')
 
-// app.use(express.static('build'))
+// const multer = require('multer')
 
+// // SET STORAGE
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, 'uploads')
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.fieldname + '-' + Date.now())
+//     }
+//   })
+   
+//   var upload = multer({ storage: storage })
 
 logger.info('connecting to', config.MONGODB_URI)
 
@@ -32,6 +43,16 @@ app.use(middleware.requestLogger)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+
+// app.post('/upload', (req, res) => {
+//     upload(req,res, (err) => {
+//         if(err){
+//              res.json({error_code:1,err_desc:err});
+//              return;
+//         }
+//         res.json({error_code:0, error_desc: null, file_uploaded: true});
+//     });
+// });
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

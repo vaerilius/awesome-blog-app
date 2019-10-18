@@ -3,16 +3,16 @@ import { useField } from '../../hooks/index'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../../reducers/user.reducer'
+import { Form, Input } from 'semantic-ui-react-form-validator'
+import { Button } from 'semantic-ui-react'
 
 const Login = (props) => {
 
   const [username, resetUsername] = useField('text')
   const [password, resetPassword] = useField('password')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     props.login({ username: username.value, password: password.value })
-
     resetPassword('')
     resetUsername('')
   }
@@ -24,23 +24,29 @@ const Login = (props) => {
         Login
       </h2>
 
-      <form className="ui form" onSubmit={handleSubmit}>
+      <Form className="ui form" onSubmit={handleSubmit}>
         <div className='field'>
           <label>Username</label>
-          <input {...username} />
+          <Input {...username}
+            validators={['required:1', 'minStringLength: 4']}
+            errorMessages={['this field is required']}
+          />
         </div>
         <div className='field'>
           <label>Password</label>
-          <input {...password} />
+          <Input {...password}
+            validators={['required:1', 'minStringLength: 4']}
+            errorMessages={['this field is required', 'min length is 4']}
+          />
         </div>
         {!props.user
           ?
-          <button className='ui button submit' type='submit'>
+          <Button className='ui button submit' type='submit'>
             Login
-          </button>
+          </Button>
           : <Redirect to="/" />
         }
-      </form>
+      </Form>
     </div>
 
   )

@@ -3,11 +3,14 @@ import { connect } from 'react-redux'
 import { initializeBlogs } from './reducers/blogs.reducer'
 import { initializeUser } from './reducers/user.reducer'
 import { initializeUsers } from './reducers/users.reducer'
+
 import Blogs from './components/blogs/blogs'
 import Blog from './components/blogs/blog/blog'
 import Users from './components/users/users'
 import User from './components/users/user/user'
 import Navbar from './components/menu/menu'
+import Notification from './components/notification'
+
 import { Container } from 'semantic-ui-react'
 
 import {
@@ -31,6 +34,7 @@ const App = (props) => {
       <Router>
         <Container style={{ margin: '5rem' }}>
           <Navbar />
+          <Notification />
           <Route exact path="/" render={() => <Landing />} />
           <Route exact path='/blogs/:id' render={({ match }) =>
             <Blog blog={props.blogs.find(b => b.id === match.params.id)} />

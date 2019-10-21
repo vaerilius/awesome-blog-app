@@ -10,19 +10,6 @@ const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const logger = require('./utils/logger')
 
-// const multer = require('multer')
-
-// // SET STORAGE
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, 'uploads')
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.fieldname + '-' + Date.now())
-//     }
-//   })
-   
-//   var upload = multer({ storage: storage })
 
 logger.info('connecting to', config.MONGODB_URI)
 

@@ -12,6 +12,7 @@ import Navbar from './components/menu/menu'
 import Notification from './components/notification'
 
 import { Container } from 'semantic-ui-react'
+import socket from './client'
 
 import {
   BrowserRouter as Router,
@@ -22,11 +23,18 @@ import Login from './components/auth/login'
 
 const App = (props) => {
 
+
   useEffect(() => {
     props.initializeBlogs()
     props.initializeUser()
     props.initializeUsers()
+
+    socket.on("test", data => {
+      console.log('data', data)
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [])
 
   return (

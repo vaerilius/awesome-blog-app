@@ -10,9 +10,7 @@ import Users from './components/users/users'
 import User from './components/users/user/user'
 import Navbar from './components/menu/menu'
 import Notification from './components/notification'
-
 import { Container } from 'semantic-ui-react'
-// import socket from './client'
 
 import {
   BrowserRouter as Router,
@@ -23,20 +21,14 @@ import Login from './components/auth/login'
 
 const App = (props) => {
 
-
   useEffect(() => {
 
-    setInterval(() => {
-      props.initializeUsers()
-    }, 3000)
+    // setInterval(() => {
+    //   props.initializeUsers()
+    // }, 3000)
+    props.initializeUsers()
     props.initializeBlogs()
     props.initializeUser()
-
-
-    // socket.on("test", data => {
-    //   console.log('data', data)
-    // });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
   }, [])

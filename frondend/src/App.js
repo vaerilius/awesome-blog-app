@@ -22,15 +22,19 @@ import Login from './components/auth/login'
 const App = (props) => {
 
   useEffect(() => {
-
-    // setInterval(() => {
-    //   props.initializeUsers()
-    // }, 3000)
-    props.initializeUsers()
-    props.initializeBlogs()
-    props.initializeUser()
+    setInterval(() => {
+      props.initializeBlogs()
+      props.initializeUsers()
+    }, 3000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+  useEffect(() => {
+    props.initializeBlogs()
+    props.initializeUsers()
+    props.initializeUser()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -46,14 +50,10 @@ const App = (props) => {
           <Route exact path='/blogs/' render={() => <Blogs />} />
           <Route exact path='/login/' render={() => <Login />} />
           <Route exact path='/users/' render={() => <Users />} />
-          {props.users
-            ?
-            <Route exact path='/users/:id' render={({ match }) =>
-              <User user={props.users.find(u => u.id === match.params.id)} />
-            } />
-            :
-            <div> loading</div>
-          }
+
+          <Route exact path='/users/:id' render={({ match }) =>
+            <User user={props.users.find(u => u.id === match.params.id)} />
+          } />
         </Container>
       </Router>
     </>

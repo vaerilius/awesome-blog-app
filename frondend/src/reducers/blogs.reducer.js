@@ -1,5 +1,6 @@
 import blogService from '../services/blogs.service'
 import { setNotification } from './notification.reducer'
+// import { initializeUsers } from './users.reducer'
 
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -53,6 +54,7 @@ export const onAddBlog = (data) => {
         blog
       })
       dispatch(setNotification({ message: `blog: ${blog.title} just added`, class: 'ui positive message' }))
+      // dispatch(initializeUsers())
     } catch (error) {
       dispatch(setNotification({ message: error.message, class: 'ui negative message' }))
     }

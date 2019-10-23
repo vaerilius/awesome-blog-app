@@ -2,12 +2,16 @@ const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const { io, server } = require('../index')
 
 blogsRouter.get('/', async (request, response, next) => {
     const blogs = await Blog.find({})
         .populate('user', { username: 1, name: 1, picture: 1 })
+        .populate('comment', { comment: 1, user: 1 })
+
     response.json(blogs.map(blog => blog.toJSON()))
 
+      
 })
 blogsRouter.get('/:id', async (request, response, next) => {
 
@@ -41,7 +45,6 @@ blogsRouter.post('/', async (request, response, next) => {
         const blog = new Blog({
             title: body.title,
             description: body.description,
-            author: body.author,
             url: body.url,
             likes: 0,
             user: user
@@ -98,8 +101,10 @@ blogsRouter.put('/:id', async (request, response, next) => {
 blogsRouter.post('/:id/comments', async (request, response, next) => {
     //https://docs.mongodb.com/manual/reference/operator/update/push/
     try {
-        const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body.comment } }, { new: true })
+        const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body } }, { new: true })
         .populate('user', { username: 1, name: 1, picture: 1 })
+        .populate('comment', { username: 1, name: 1, picture: 1 })
+
        response.json(updatedBlog.toJSON())
  
     } catch (error) {

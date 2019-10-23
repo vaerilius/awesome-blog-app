@@ -4,7 +4,10 @@ const commentSchema = mongoose.Schema({
     comment: {
         type: String
     },
-    user: String
+    user:         {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 commentSchema.plugin(uniqueValidator)
 

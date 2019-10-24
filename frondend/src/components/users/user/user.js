@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const User = (props) => {
-  if (props.user === undefined) {
-    return null
+  if (!props.user) {
+    return (
+      <h2>loading</h2>
+    )
   }
 
   return (

@@ -22,22 +22,28 @@ import Login from './components/auth/login'
 const App = (props) => {
 
   useEffect(() => {
-    // setInterval(() => {
-    //   props.initializeBlogs()
-    //   props.initializeUsers()
-    // }, 3000)
-    props.initializeBlogs()
-    props.initializeUsers()
+    setInterval(() => {
+      props.initializeBlogs()
+      props.initializeUsers()
+    }, 7000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
   useEffect(() => {
     props.initializeBlogs()
     props.initializeUsers()
     props.initializeUser()
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+
+
+  if (!props.blogs && props.users) {
+    return (
+      <div className="ui active inverted dimmer">
+        <div className="ui text huge loader">Blogs Loading...</div>
+      </div>
+    )
+  }
 
   return (
     <>

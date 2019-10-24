@@ -7,11 +7,12 @@ import { Button, Icon, Image, Modal } from 'semantic-ui-react'
 
 const Blog = (props) => {
   const [comment, clearComment] = useField('text')
+
   if (!props.blog) {
     return <h2>loading</h2>
   }
 
-  const like = () => props.onLikeBlog(props.blog)
+  const like = () => props.onLikeBlog(props.blog, props.user.id)
 
   const remove = () => {
     if (window.confirm('Do you really want to remove so nice picture')) {
@@ -57,7 +58,7 @@ const Blog = (props) => {
             </div>
             {props.user
               ?
-              <button className="ui button"
+              <button className={props.blog.usersLiked.includes(props.user.id) ? 'ui disabled button' : 'ui button'}
                 onClick={like}>
                 <i className="heart icon"></i>
                 Like

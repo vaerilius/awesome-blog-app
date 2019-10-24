@@ -2,7 +2,7 @@
 import usersService from '../services/users.service'
 import { setNotification } from './notification.reducer'
 
-const reducer = (state = null, action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_USERS':
       return [...action.users]

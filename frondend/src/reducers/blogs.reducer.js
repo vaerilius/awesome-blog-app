@@ -29,10 +29,12 @@ export const initializeBlogs = () => {
   }
 }
 
-export const onLikeBlog = blog => {
+export const onLikeBlog = (blog, userID) => {
   return async dispatch => {
+
     try {
-      const newBlog = { ...blog, likes: blog.likes + 1 }
+      const newBlog = { ...blog, likes: blog.likes + 1, user: userID }
+      console.log(newBlog);
       const updatedBlog = await blogService.updateBlog(blog.id, newBlog)
       dispatch({
         type: 'LIKE_BLOG',

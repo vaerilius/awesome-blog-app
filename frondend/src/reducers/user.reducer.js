@@ -1,5 +1,6 @@
 import blogsService from '../services/blogs.service'
 import userService from '../services/user.service'
+import { setNotification } from './notification.reducer'
 
 const reducer = (state = null, action) => {
 
@@ -43,9 +44,10 @@ export const login = (loginData) => {
           type: 'LOGIN_USER',
           user: user
         })
+        dispatch(setNotification({ message: `${user.username} logged in`, class: 'ui positive message' }))
       }
     } catch (error) {
-      console.log(error)
+      dispatch(setNotification({ message: 'wrong username or password', class: 'ui negative message' }))
     }
   }
 }
@@ -57,6 +59,8 @@ export const logout = () => {
     dispatch({
       type: 'LOGOUT_USER'
     })
+    dispatch(setNotification({ message: 'User logged out', class: 'ui info message' }))
+
   }
 }
 

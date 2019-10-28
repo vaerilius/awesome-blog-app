@@ -1,6 +1,8 @@
 
 import usersService from '../services/users.service'
-const reducer = (state = null, action) => {
+import { setNotification } from './notification.reducer'
+
+const reducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_USERS':
       return [...action.users]
@@ -22,12 +24,18 @@ export const initializeUsers = () => {
 }
 export const signUp = (userData) => {
   return async dispatch => {
-    const createdUser = await usersService.signUpUser(userData)
-    console.log(createdUser)
-    dispatch({
-      type: 'SIGNUP_USER',
-      createdUser
-    })
+    try {
+      const createdUser = await usersService.signUpUser(userData)
+      dispatch({
+        type: 'SIGNUP_USER',
+        createdUser
+      })
+      dispatch(setNotification({ message: 'sign up succeed', class: 'ui positive message' }))
+
+    } catch (error) {
+      dispatch(setNotification({ message: error.message, class: 'ui negative message' }))
+    }
+
 
   }
 }

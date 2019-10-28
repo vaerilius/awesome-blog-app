@@ -8,22 +8,27 @@ import { Button, Icon, Image, Modal } from 'semantic-ui-react'
 const Blog = (props) => {
   const [comment, clearComment] = useField('text')
 
+  if (!props.blog) {
+    return <h2>loading</h2>
+  }
 
-  const like = () => props.onLikeBlog(props.blog)
+  const like = () => props.onLikeBlog(props.blog, props.user.id)
+
   const remove = () => {
     if (window.confirm('Do you really want to remove so nice picture')) {
       props.onRemoveBlog(props.blog.id)
     }
-
-  }
-
-  if (props.blog === undefined) {
-    return <h2>loading</h2>
   }
 
   const handleComment = () => {
-    props.onAddComment({ comment: comment.value }, props.blog.id)
+    props.onAddComment({ comment: comment.value, user: props.user.id }, props.blog.id)
     clearComment()
+  }
+  const getCommentUserImage = (userID) => {
+    if (props.users) {
+      const findedUser = props.users.find(u => u.id === userID)
+      return findedUser ? findedUser.picture : null
+    }
   }
 
   return (
@@ -32,7 +37,7 @@ const Blog = (props) => {
         <div className="column">
           <div className="ui fluid card centered ">
             <div className="content">
-              <div className="header">Title: {props.blog.title}</div>
+              <div className="header"> {props.blog.title}</div>
             </div>
             <div className="image" >
               <Modal
@@ -53,7 +58,7 @@ const Blog = (props) => {
             </div>
             {props.user
               ?
-              <button className="ui button"
+              <button className={props.blog.usersLiked.includes(props.user.id) ? 'ui disabled button' : 'ui button'}
                 onClick={like}>
                 <i className="heart icon"></i>
                 Like
@@ -102,30 +107,36 @@ const Blog = (props) => {
             </div>
             <div className="extra content">
               <p className="ui icon header">Comments: </p>
-
-              <div className="ui list">
+              <div className="ui relaxed divided list">
                 {props.blog.comments.map(comment =>
-                  <div className="center aligned item" key={comment}>
-                    {comment}
+                  <div className="item" key={comment._id}>
+                    <Image className="ui avatar image" src={getCommentUserImage(comment.user)} />
+                    <div className="content">
+                      <div className="center aligned item" >
+                        {comment.comment}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
             </div>
           </div>
         </div>
+        <Link to={'/blogs'}>
+          <Button primary>
+            Back to blogs <Icon name='step backward' />
+          </Button>
+        </Link>
       </div>
-      <Link to={'/blogs'}>
-        <Button primary>
-          Back to blogs <Icon name='step backward' />
-        </Button>
-      </Link>
     </div>
+
 
   )
 }
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    users: state.users
   }
 }
 

@@ -6,14 +6,14 @@ const userSchema = mongoose.Schema({
         type: String,
         unique: true,
         required: true,
-        minlength: 3
+        minlength: 4
     },
-    name: String,
+    name:  { type: String, required: true },
     picture: { type: String, required: true },
     password: {
         type: String,
         required: true,
-        minlength: 3
+        minlength: 4
     },
     passwordHash: String,
     blogs: [

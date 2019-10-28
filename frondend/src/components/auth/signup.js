@@ -24,6 +24,7 @@ const Signup = (props) => {
     resetPicture('')
     resetPassword('')
     resetUsername('')
+    return true
   }
 
 
@@ -35,25 +36,34 @@ const Signup = (props) => {
       </h1>
 
       <Form
+        instantValidate={false}
         onSubmit={handleSubmit}>
         <div className="field">
           <Input
             label="Username"
+            validators={['required:1', 'minStringLength: 4']}
+            errorMessages={['this field is required', 'min length is 4']}
             {...username} />
         </div>
         <div className="field">
           <Input
             label="Password"
+            validators={['required:1', 'minStringLength: 4']}
+            errorMessages={['this field is required', 'min length is 4']}
             {...password} />
         </div>
         <div className="field">
           <Input
             label="Name"
+            validators={['required:1']}
+            errorMessages={['this field is required']}
             {...name} />
         </div>
         <div className="field">
           <Input
             label="Picture"
+            validators={['required:1']}
+            errorMessages={['this field is required']}
             {...picture} />
         </div>
         <Button

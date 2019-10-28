@@ -33,10 +33,9 @@ export const signUp = (userData) => {
       dispatch(setNotification({ message: 'sign up succeed', class: 'ui positive message' }))
 
     } catch (error) {
-      dispatch(setNotification({ message: error.message, class: 'ui negative message' }))
+      console.log(error.message)
+      dispatch(setNotification({ message: 'validation error', class: 'ui negative message' }))
     }
-
-
   }
 }
 

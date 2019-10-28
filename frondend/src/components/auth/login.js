@@ -24,12 +24,15 @@ const Login = (props) => {
         Login
       </h2>
 
-      <Form className="ui form" onSubmit={handleSubmit}>
+      <Form
+        className="ui form"
+        instantValidate={false}
+        onSubmit={handleSubmit}>
         <div className='field'>
           <label>Username</label>
           <Input {...username}
             validators={['required:1', 'minStringLength: 4']}
-            errorMessages={['this field is required']}
+            errorMessages={['this field is required', 'min length is 4']}
           />
         </div>
         <div className='field'>

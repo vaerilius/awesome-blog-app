@@ -13,6 +13,22 @@ usersRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body
 
+    // if (!body.username || body.username.length < 4 ) {
+    //   return response.status(400).send({
+    //     error: 'username minimum length 4'
+    //   })
+    // }
+    // if (!body.password || body.password.length < 4 ) {
+    //   return response.status(400).send({
+    //     error: 'pasword minimum length 4'
+    //   })
+    // }
+    // if (!body.picture ) {
+    //   return response.status(400).send({
+    //     error: 'picture is required'
+    //   })
+    // }
+
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
@@ -27,8 +43,8 @@ usersRouter.post('/', async (request, response, next) => {
 
     const savedUser = await user.save()
     response.json(savedUser)
-  } catch (exception) {
-    next(exception)
+  } catch (error) {
+    next(error)
   }
 })
 

@@ -18,21 +18,25 @@ import {
 } from 'react-router-dom'
 import Landing from './components/landing'
 import Login from './components/auth/login'
+import io from './client'
 
 const App = (props) => {
 
   useEffect(() => {
-    // setInterval(() => {
-      props.initializeBlogs()
-      props.initializeUsers()
-    // }, 10000)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  useEffect(() => {
     props.initializeBlogs()
     props.initializeUsers()
     props.initializeUser()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(() => {
+    io.on('connection', (data) => {
+      console.log(data)
+      props.initializeBlogs()
+      props.initializeUsers()
+
+    })
+
   }, [])
 
 

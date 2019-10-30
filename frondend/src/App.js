@@ -18,7 +18,6 @@ import {
 } from 'react-router-dom'
 import Landing from './components/landing'
 import Login from './components/auth/login'
-import io from './client'
 
 const App = (props) => {
 
@@ -30,12 +29,11 @@ const App = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
-    io.on('connection', (data) => {
-      console.log(data)
+
+    setInterval(() => {
       props.initializeBlogs()
       props.initializeUsers()
-
-    })
+    }, 10000)
 
   }, [])
 

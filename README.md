@@ -1,5 +1,5 @@
 # awesome-blog-app
-### https://awesome-blog-app2.herokuapp.com/
+### https://awesome-blog-app3.herokuapp.com/
 #### Deploy vesion 3.0
 #### Application was made at Laurea University JavaScript course
 #### Frontend: React (Hooks, redux)

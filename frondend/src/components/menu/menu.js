@@ -28,14 +28,16 @@ const Navbar = (props) => {
           :
           <>
             <div className="ui item">
-              <img className="ui avatar image" alt="" src={props.user.picture} />
-              <span>{props.user.username}</span>
+              <Link to={`/users/${props.user.id}`}>
+                <img className="ui avatar image" alt="" src={props.user.picture} />
+                <span>{props.user.username}</span>
+              </Link>
             </div>
             <div className="ui item">
               {props.user ?
                 <div onClick={handleLogout}>
                   Logout
-                      </div>
+                </div>
                 : <Redirect to="/" />}
             </div>
           </>

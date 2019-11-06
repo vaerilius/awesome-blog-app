@@ -34,7 +34,7 @@ const App = (props) => {
       props.initializeBlogs()
       props.initializeUsers()
     }, 10000)
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 

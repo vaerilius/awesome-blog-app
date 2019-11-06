@@ -11,7 +11,7 @@ const Landing = (props) => {
           Awesome Blog App
           <i className="images outline icon"></i>
         </h1>
-        <h2 className="ui header">Home / landing page</h2>
+        <h2 className="ui header">Add images to your blog</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Donec auctor mi ut lacinia semper. Aliquam non rutrum massa.
           Vestibulum commodo congue metus, a euismod diam accumsan non.
@@ -25,10 +25,10 @@ const Landing = (props) => {
         </p>
       </div>
       {!props.user
-      ?
-      <Signup /> 
-      : null
-    }
+        ?
+        <Signup />
+        : null
+      }
     </>
   )
 

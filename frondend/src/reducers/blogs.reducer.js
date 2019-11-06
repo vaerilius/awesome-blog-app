@@ -1,6 +1,5 @@
 import blogService from '../services/blogs.service'
 import { setNotification } from './notification.reducer'
-// import { initializeUsers } from './users.reducer'
 
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -34,7 +33,6 @@ export const onLikeBlog = (blog, userID) => {
 
     try {
       const newBlog = { ...blog, likes: blog.likes + 1, user: userID }
-      console.log(newBlog);
       const updatedBlog = await blogService.updateBlog(blog.id, newBlog)
       dispatch({
         type: 'LIKE_BLOG',
@@ -56,7 +54,6 @@ export const onAddBlog = (data) => {
         blog
       })
       dispatch(setNotification({ message: `blog: ${blog.title} just added`, class: 'ui positive message' }))
-      // dispatch(initializeUsers())
     } catch (error) {
       dispatch(setNotification({ message: error.message, class: 'ui negative message' }))
     }
@@ -85,7 +82,6 @@ export const onAddComment = (comment, id) => {
         blog
       })
       dispatch(setNotification({ message: `blog: ${blog.title} just commented`, class: 'ui positive message' }))
-
     } catch (error) {
       dispatch(setNotification({ message: error.message, class: 'ui negative message' }))
     }

@@ -37,8 +37,8 @@ const UsersListItem = (props) => {
 const mapStateToProps = state => {
 
   return {
-    users: state.users,
-    // .sort((u1, u2) => u2.blogs.length - u1.blogs.length)
+    users: state.users
+      .sort((u1, u2) => u2.blogs.length - u1.blogs.length)
   }
 }
 export default connect(mapStateToProps)(UsersListItem)

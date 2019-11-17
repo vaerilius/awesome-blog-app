@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { signUp } from '../../reducers/users.reducer'
 import { useField } from '../../hooks/index'
@@ -8,20 +8,31 @@ import { Button } from 'semantic-ui-react'
 const Signup = (props) => {
   const [username, resetUsername] = useField('text')
   const [name, resetName] = useField('text')
-  const [picture, resetPicture] = useField('text')
+  const [picture, setPicture] = useState(null)
   const [password, resetPassword] = useField('password')
 
   const handleSubmit = () => {
-    const newUser = {
-      username: username.value,
-      password: password.value,
-      picture: picture.value,
-      name: name.value
-    }
-    props.signUp(newUser)
+    const formData = new FormData()
+    formData.append('profileImg', picture)
+    formData.append('username', username.value)
+    formData.append('name', name.value)
+    formData.append('password', password.value)
+
+    // formData.append('profileImg', file)
+    // formData.append('name', file.name)
+    // formData.append('username', username)
+
+    // const newUser = {
+    //   username: username.value,
+    //   password: password.value,
+    //   picture: formData,
+    //   name: name.value
+    // }
+    // console.log(newUser)
+    props.signUp(formData)
 
     resetName('')
-    resetPicture('')
+    setPicture(null)
     resetPassword('')
     resetUsername('')
     return true
@@ -62,9 +73,10 @@ const Signup = (props) => {
         <div className="field">
           <Input
             label="Picture"
-            validators={['required:1']}
-            errorMessages={['this field is required']}
-            {...picture} />
+            // validators={['required:1']}
+            // errorMessages={['this field is required']}
+            type='file'
+            onChange={(e) => setPicture(e.target.files[0])} />
         </div>
         <Button
           className="ui button submit"

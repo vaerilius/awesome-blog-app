@@ -22,16 +22,18 @@ import Login from './components/auth/login'
 const App = (props) => {
 
   useEffect(() => {
-    // setInterval(() => {
-      props.initializeBlogs()
-      props.initializeUsers()
-    // }, 10000)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  useEffect(() => {
     props.initializeBlogs()
     props.initializeUsers()
     props.initializeUser()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(() => {
+
+    setInterval(() => {
+      props.initializeBlogs()
+      props.initializeUsers()
+    }, 10000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

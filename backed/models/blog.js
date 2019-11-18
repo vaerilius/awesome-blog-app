@@ -18,12 +18,12 @@ const blogSchema = mongoose.Schema({
   },
   comments: [
     {
-      // user:
-      // {
+      user:
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
-      // },
-      // comment: String
+        ref: 'User'
+      },
+      comment: String
     }
 
   ]

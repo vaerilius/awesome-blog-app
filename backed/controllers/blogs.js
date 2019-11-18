@@ -34,7 +34,7 @@ const upload = multer({
 blogsRouter.get('/', async (request, response, next) => {
   const blogs = await Blog.find({})
     .populate('user', { username: 1, name: 1, picture: 1 })
-    .populate('comments', { comment: 1, user: 1 })
+    .populate('comment', { comment: 1, user: 1 })
     .populate('usersLiked', {  username: 1, name: 1, picture: 1 })
 
   response.json(blogs.map(blog => blog.toJSON()))
@@ -136,10 +136,17 @@ blogsRouter.put('/:id', async (request, response, next) => {
 
 blogsRouter.post('/:id/comments', async (request, response, next) => {
   //https://docs.mongodb.com/manual/reference/operator/update/push/
+  // const user = await User.findById({ _id:request.body.user })
+  // const comment = {
+  //   user: user.id, 
+  //   comment: request.body.comment
+  // }
+  // console.log(comment)
+
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body } }, { new: true })
-      .populate('user', { username: 1, name: 1, picture: 1 })
-      .populate('comments', { comment: 1, user: 1 })
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body  } }, { new: true })
+    .populate('user', { username: 1, name: 1, picture: 1 })
+    .populate('comment', { comment: 1, user: 1 })
 
     response.json(updatedBlog.toJSON())
 

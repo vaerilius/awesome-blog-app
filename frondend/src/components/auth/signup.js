@@ -72,7 +72,7 @@ const Signup = (props) => {
         </div>
         <div className="field">
           <div className="ui action input">
-            <Input
+            <input
               label="Picture"
               // validators={['required:1']}
               // errorMessages={['this field is required']}

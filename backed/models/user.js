@@ -22,6 +22,8 @@ const userSchema = mongoose.Schema({
             ref: 'Blog'
         }
     ],
+}, {
+    timestamps: true
 })
 
 userSchema.plugin(uniqueValidator)

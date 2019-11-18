@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'https://stark-ocean-35945.herokuapp.com/api/users'
+const baseUrl = 'https://calm-reaches-63250.herokuapp.com/api/users'
 // const baseUrl = '/api/users'
 
 const signUpUser = async (userData) => {

@@ -1,36 +1,66 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken')
-// const { io, server } = require('../index')
+const multer = require('multer')
+const uuidv4 = require('uuid/v4')
+
+const DIR = './blogs/'
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.toLowerCase().split(' ').join('-');
+    cb(null, uuidv4() + '-' + fileName)
+  }
+})
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  }
+})
+
+
 
 blogsRouter.get('/', async (request, response, next) => {
   const blogs = await Blog.find({})
-    .populate('user', { username: 1, name: 1, picture: 1, id: 1 })
+    .populate('user', { username: 1, name: 1, picture: 1 })
     .populate('comment', { comment: 1, user: 1 })
+    .populate('usersLiked', {  username: 1, name: 1, picture: 1 })
 
   response.json(blogs.map(blog => blog.toJSON()))
 
 
 })
-blogsRouter.get('/:id', async (request, response, next) => {
+// blogsRouter.get('/:id', async (request, response, next) => {
 
-  try {
-    const blog = await Blog.findById(request.params.id)
-    if (blog) {
-      response.json(blog.toJSON())
-    } else {
-      response.status(404).end()
-    }
-  } catch (error) {
-    next(error)
-  }
+//   try {
+//     const blog = await Blog.findById(request.params.id)
+//     if (blog) {
+//       response.json(blog.toJSON())
+//     } else {
+//       response.status(404).end()
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
 
-})
+// })
 
-blogsRouter.post('/', async (request, response, next) => {
-
+blogsRouter.post('/', upload.single('blogImage'), async (request, response, next) => {
+  const url = request.protocol + '://' + request.get('host')
   const body = request.body
+  console.log(request.file);
+  console.log(request.body);
 
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
@@ -41,11 +71,10 @@ blogsRouter.post('/', async (request, response, next) => {
 
     const user = await User.findById(decodedToken.id)
 
-
     const blog = new Blog({
       title: body.title,
       description: body.description,
-      url: body.url,
+      url: url + '/blogs/' + request.file.filename,
       likes: 0,
       user: user,
       usersLiked: []
@@ -72,6 +101,7 @@ blogsRouter.delete('/:id', async (request, response, next) => {
       return response.status(401).json({ error: 'wrong token' })
     } else if (blog.user.toString() === user._id.toString()) {
       await Blog.deleteOne({ _id: request.params.id })
+      // user.blogs
       response.status(204).end()
     }
 
@@ -96,7 +126,7 @@ blogsRouter.put('/:id', async (request, response, next) => {
     
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
       .populate('user', { username: 1, name: 1, picture: 1 })
-      .populate('comment', { comment: 1, user: 1 })
+      .populate('comments', { comment: 1, user: 1 })
 
     response.json(updatedBlog.toJSON())
   } catch (error) {
@@ -106,10 +136,17 @@ blogsRouter.put('/:id', async (request, response, next) => {
 
 blogsRouter.post('/:id/comments', async (request, response, next) => {
   //https://docs.mongodb.com/manual/reference/operator/update/push/
+  // const user = await User.findById({ _id:request.body.user })
+  // const comment = {
+  //   user: user.id, 
+  //   comment: request.body.comment
+  // }
+  // console.log(comment)
+
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body } }, { new: true })
-      .populate('user', { username: 1, name: 1, picture: 1 })
-      .populate('comment', { comment: 1, user: 1 })
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body  } }, { new: true })
+    .populate('user', { username: 1, name: 1, picture: 1 })
+    .populate('comment', { comment: 1, user: 1 })
 
     response.json(updatedBlog.toJSON())
 

@@ -1,29 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { onAddBlog } from '../../reducers/blogs.reducer'
 import { useField } from '../../hooks/index'
-import { Form, Input, TextArea } from 'semantic-ui-react-form-validator'
+import { Form, TextArea } from 'semantic-ui-react-form-validator'
 
 const NewBlog = (props) => {
   const [title, resetTitle] = useField('text')
-  const [url, resetUrl] = useField('text')
+  const [blogImage, setBlogImage] = useState(null)
   const [description, resetDescription] = useField('text')
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const newBlog = {
-      title: title.value,
-      url: url.value,
-      description: description.value
-    }
+  const handleSubmit = () => {
+    // const newBlog = {
+    //   title: title.value,
+    //   url: url.value,
+    //   description: description.value
+    // }
+    console.log(blogImage)
 
-    props.onAddBlog(newBlog)
+    const formData = new FormData()
+    formData.append('blogImage', blogImage)
+    formData.append('title', title.value)
+    formData.append('description', description.value)
+
+    props.onAddBlog(formData)
     props.newBlogRef.current.toggleVisibility()
     resetTitle()
-
-    resetUrl()
-
+    setBlogImage(null)
     resetDescription()
 
   }
@@ -35,18 +38,22 @@ const NewBlog = (props) => {
       onSubmit={handleSubmit}>
       <div className="field">
         <label>title</label>
-        <Input
+        <TextArea
           {...title}
-          validators={['required:1', 'minStringLength: 6']}
-          errorMessages={['this field is required', 'min length is 6']}
+          rows="1"
+
+          validators={['required:1', 'minStringLength: 4']}
+          errorMessages={['this field is required', 'min length is 4']}
         />
       </div>
       <div className="field">
         <label>url</label>
-        <Input
-          {...url}
-          validators={['required:1', 'minStringLength: 10']}
-          errorMessages={['this field is required', 'Image url min length is 10']}
+        <input
+          onChange={({ target }) => setBlogImage(target.files[0])}
+          type='file'
+          // {...url}
+          // validators={['required:1']}
+          // errorMessages={['this field is required']}
         />
       </div>
       <div className="field">
@@ -58,7 +65,11 @@ const NewBlog = (props) => {
           errorMessages={['this field is required', 'min length is 4']}
         />
       </div>
-      <button className="ui button" type="submit">Create new blog</button>
+      <button
+        className="ui button" type="submit"
+        style={{ marginBottom: '2rem' }}>
+        Create new blog
+      </button>
     </Form>
   )
 }

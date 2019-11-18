@@ -71,13 +71,18 @@ const Signup = (props) => {
             {...name} />
         </div>
         <div className="field">
-          <Input
-            label="Picture"
-            // validators={['required:1']}
-            // errorMessages={['this field is required']}
-            type='file'
-            onChange={(e) => setPicture(e.target.files[0])} />
+          <div className="ui action input">
+            <Input
+              label="Picture"
+              // validators={['required:1']}
+              // errorMessages={['this field is required']}
+              type='file'
+              onChange={(e) => setPicture(e.target.files[0])}
+            />
+
+          </div>
         </div>
+
         <Button
           className="ui button submit"
           type="submit">

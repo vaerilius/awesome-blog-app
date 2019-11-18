@@ -6,19 +6,24 @@ const blogSchema = mongoose.Schema({
   description: { type: String, required: true },
   url: { type: String, required: true },
   likes: Number,
-  usersLiked: [],
+  usersLiked: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+  ],
     user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
   comments: [
     {
-      user:
-      {
+      // user:
+      // {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      },
-      comment: String
+        ref: 'Comment'
+      // },
+      // comment: String
     }
 
   ]

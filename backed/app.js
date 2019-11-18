@@ -23,6 +23,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
 app.use(cors())
 app.use(bodyParser.json())
 app.use('/users', express.static('users'));
+app.use('/blogs', express.static('blogs'));
 
 app.use(middleware.tokenExtractor)
 app.use(middleware.requestLogger)

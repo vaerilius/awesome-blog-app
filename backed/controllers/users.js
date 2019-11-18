@@ -4,7 +4,7 @@ const uuidv4 = require('uuid/v4')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
-const DIR = './users/';
+const DIR = './users/'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -37,25 +37,26 @@ usersRouter.get('/', async (request, response) => {
 
 usersRouter.post('/', upload.single('profileImg'), async (request, response, next) => {
   const url = request.protocol + '://' + request.get('host')
+  console.log(url)
   try {
     const body = request.body
       console.log(request.file);
   console.log(request.body);
-    // if (!body.username || body.username.length < 4 ) {
-    //   return response.status(400).send({
-    //     error: 'username minimum length 4'
-    //   })
-    // }
-    // if (!body.password || body.password.length < 4 ) {
-    //   return response.status(400).send({
-    //     error: 'pasword minimum length 4'
-    //   })
-    // }
-    // if (!body.picture ) {
-    //   return response.status(400).send({
-    //     error: 'picture is required'
-    //   })
-    // }
+    if (!body.username || body.username.length < 4 ) {
+      return response.status(400).send({
+        error: 'username minimum length 4'
+      })
+    }
+    if (!body.password || body.password.length < 4 ) {
+      return response.status(400).send({
+        error: 'pasword minimum length 4'
+      })
+    }
+    if (!request.file ) {
+      return response.status(400).send({
+        error: 'picture is required'
+      })
+    }
 
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)

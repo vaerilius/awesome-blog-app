@@ -6,7 +6,8 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 let imageName= ''
 const AWS = require('aws-sdk');
-// AWS.config.region = 'eu-stockholm';
+
+
 AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_ID,
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -35,9 +36,8 @@ const upload = multer({
     key: function (req, file, cb) {
       // console.log(file)
       console.log(file.mimetype.split('/')[1])
-      imageName =  uuidv4() + '-' + file.originalname.toLowerCase().split(' ').join('-');
+      imageName = 'users/' + uuidv4() + '-' + file.originalname.toLowerCase().split(' ').join('-');
      cb(null, imageName)
-      // cb(null, file.fieldname + Date.now() + file.mimetype.split('/')[1].toString());
     }
   })
 });

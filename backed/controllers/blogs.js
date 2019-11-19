@@ -5,29 +5,70 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
 const uuidv4 = require('uuid/v4')
+const multerS3 = require('multer-s3');
+// const AWS = require('aws-sdk');
+const AWS = require('../utils/aws-config');
+let imageName= ''
 
-const DIR = './blogs/'
+// AWS.config.update({
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_ID,
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   region: process.env.AWS_REGION
+// })
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, DIR);
-  },
-  filename: (req, file, cb) => {
-    const fileName = file.originalname.toLowerCase().split(' ').join('-');
-    cb(null, uuidv4() + '-' + fileName)
-  }
-})
+// const s3 = new AWS.S3();
+// const fileFilter = (req, file, cb) => {
+//   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+//     cb(null, true);
+//   } else {
+//     cb(new Error('Wrong file type, only upload JPEG and/or PNG !'),
+//       false);
+//   }
+// };
+
 const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+  fileFilter: AWS.fileFilter,
+  storage: multerS3({
+    acl: 'public-read',
+    s3: AWS.s3,
+    bucket: process.env.AWS_BUCKET_NAME,
+    // metadata: function (req, file, cb) {
+    //   cb(null, Object.assign({}, req.body));
+    // },
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    key: function (req, file, cb) {
+      // console.log(file)
+      console.log(file.mimetype.split('/')[1])
+      imageName = 'blogs/' + uuidv4() + '-' + file.originalname.toLowerCase().split(' ').join('-');
+      cb(null, imageName)
     }
-  }
-})
+  })
+});
+
+
+
+// const DIR = './blogs/'
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, DIR);
+//   },
+//   filename: (req, file, cb) => {
+//     const fileName = file.originalname.toLowerCase().split(' ').join('-');
+//     cb(null, uuidv4() + '-' + fileName)
+//   }
+// })
+// const upload = multer({
+//   storage: storage,
+//   fileFilter: (req, file, cb) => {
+//     if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//       return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+//     }
+//   }
+// })
 
 
 
@@ -35,7 +76,7 @@ blogsRouter.get('/', async (request, response, next) => {
   const blogs = await Blog.find({})
     .populate('user', { username: 1, name: 1, picture: 1 })
     .populate('comment', { comment: 1, user: 1 })
-    .populate('usersLiked', {  username: 1, name: 1, picture: 1 })
+    .populate('usersLiked', { username: 1, name: 1, picture: 1 })
 
   response.json(blogs.map(blog => blog.toJSON()))
 
@@ -74,7 +115,7 @@ blogsRouter.post('/', upload.single('blogImage'), async (request, response, next
     const blog = new Blog({
       title: body.title,
       description: body.description,
-      url: url + '/blogs/' + request.file.filename,
+      url: `${process.env.AWS_UPLOADED_FILE_URL_LINK}/${imageName}`,
       likes: 0,
       user: user,
       usersLiked: []
@@ -123,7 +164,7 @@ blogsRouter.put('/:id', async (request, response, next) => {
   }
 
   try {
-    
+
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
       .populate('user', { username: 1, name: 1, picture: 1 })
       .populate('comments', { comment: 1, user: 1 })
@@ -144,9 +185,9 @@ blogsRouter.post('/:id/comments', async (request, response, next) => {
   // console.log(comment)
 
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body  } }, { new: true })
-    .populate('user', { username: 1, name: 1, picture: 1 })
-    .populate('comment', { comment: 1, user: 1 })
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body } }, { new: true })
+      .populate('user', { username: 1, name: 1, picture: 1 })
+      .populate('comment', { comment: 1, user: 1 })
 
     response.json(updatedBlog.toJSON())
 

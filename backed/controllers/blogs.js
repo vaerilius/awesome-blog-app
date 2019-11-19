@@ -1,7 +1,7 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
-const Comment = require('../models/comment')
+// const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
 const uuidv4 = require('uuid/v4')
@@ -41,23 +41,23 @@ blogsRouter.get('/', async (request, response, next) => {
 
 
 })
-// blogsRouter.get('/:id', async (request, response, next) => {
+blogsRouter.get('/:id', async (request, response, next) => {
 
-//   try {
-//     const blog = await Blog.findById(request.params.id)
-//     if (blog) {
-//       response.json(blog.toJSON())
-//     } else {
-//       response.status(404).end()
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
+  try {
+    const blog = await Blog.findById(request.params.id)
+    if (blog) {
+      response.json(blog.toJSON())
+    } else {
+      response.status(404).end()
+    }
+  } catch (error) {
+    next(error)
+  }
 
-// })
+})
 
 blogsRouter.post('/', upload.single('blogImage'), async (request, response, next) => {
-  const url = request.protocol + '://' + request.get('host')
+  // const url = request.protocol + '://' 
   const body = request.body
   console.log(request.file);
   console.log(request.body);

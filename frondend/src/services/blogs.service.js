@@ -1,6 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'https://calm-reaches-63250.herokuapp.com/api/blogs'
-// const baseUrl = '/api/blogs'
+// const baseUrl = 'https://calm-reaches-63250.herokuapp.com/api/blogs'
+const baseUrl = '/api/blogs'
 
 let token = null
 

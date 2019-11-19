@@ -58,8 +58,11 @@ const Blog = (props) => {
             </div>
             {props.user
               ?
-              <button className={props.blog.usersLiked.includes(props.user.id) ? 'ui disabled button' : 'ui button'}
-                onClick={like}>
+              <button className={props.blog.usersLiked
+                // .includes(props.user.id)
+                .find(u => u.id === props.user.id)
+                ? 'ui disabled button' : 'ui button'}
+              onClick={like}>
                 <i className="heart icon"></i>
                 Like
               </button>
@@ -106,7 +109,10 @@ const Blog = (props) => {
               </div>
             </div>
             <div className="extra content">
-              <p className="ui icon header">Comments: </p>
+
+              {props.blog.comments.length > 0
+                ? <p className="ui icon header"> Comments: </p>
+                : <p className="ui icon header">No comments </p>}
               <div className="ui relaxed divided list">
                 {props.blog.comments.map(comment =>
                   <div className="item" key={comment._id}>
@@ -128,7 +134,7 @@ const Blog = (props) => {
           </Button>
         </Link>
       </div>
-    </div>
+    </div >
 
 
   )

@@ -25,7 +25,6 @@ const blogSchema = mongoose.Schema({
       },
       comment: String
     }
-
   ]
 })
 blogSchema.plugin(uniqueValidator)

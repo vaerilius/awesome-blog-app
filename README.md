@@ -5,5 +5,5 @@
 #### Frontend: React (Hooks, redux)
 #### Backend & Database: NodeJS & MongoDB
 
-#### hours spended = approximately 60h
+#### hours spended = approximately 65h
 

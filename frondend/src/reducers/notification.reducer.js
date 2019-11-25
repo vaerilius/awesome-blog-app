@@ -18,7 +18,7 @@ export const setNotification = (notification) => {
         type: 'SET_MESSAGE',
         notification: { type: '', message: null }
       })
-    }, 3000)
+    }, 5000)
   }
 }
 

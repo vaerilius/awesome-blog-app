@@ -9,7 +9,6 @@ const BlogListItem = (props) => {
     maxHeight: '25rem',
     minHeight: '15rem',
   }
-
   return (
     <>
       <Link to={`blogs/${props.blog.id}`}>

@@ -11,6 +11,7 @@ import User from './components/users/user/user'
 import Navbar from './components/menu/menu'
 import Notification from './components/notification'
 import { Container } from 'semantic-ui-react'
+import io from 'socket.io-client'
 
 import {
   BrowserRouter as Router,
@@ -20,23 +21,39 @@ import Landing from './components/landing'
 import Login from './components/auth/login'
 
 const App = (props) => {
+  const socket = io('http://localhost:3001/')
 
   useEffect(() => {
-    props.initializeBlogs()
-    props.initializeUsers()
-    props.initializeUser()
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  useEffect(() => {
-
-    setInterval(() => {
+    socket.on('connected', (data) => {
+      console.log(data)
       props.initializeBlogs()
       props.initializeUsers()
-    }, 15000)
+      props.initializeUser()
+    })
+
+
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+
+
+
+
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
 
   if (!props.blogs && props.users) {
@@ -46,6 +63,7 @@ const App = (props) => {
       </div>
     )
   }
+
 
   return (
     <>

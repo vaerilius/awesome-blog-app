@@ -18,10 +18,6 @@ const Signup = (props) => {
     formData.append('name', name.value)
     formData.append('password', password.value)
 
-    // formData.append('profileImg', file)
-    // formData.append('name', file.name)
-    // formData.append('username', username)
-
     // const newUser = {
     //   username: username.value,
     //   password: password.value,

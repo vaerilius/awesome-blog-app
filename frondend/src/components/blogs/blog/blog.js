@@ -9,7 +9,20 @@ const Blog = (props) => {
   const [comment, clearComment] = useField('text')
 
   if (!props.blog) {
-    return <h2>loading</h2>
+    return (
+      <div className="ui active inverted dimmer">
+        <div className="ui text huge loader">Blogs Loading...</div>
+      </div>
+    )
+  }
+
+  const findUserPicture = (userID) => {
+    const findedUser = props.users.find(u => u.id === userID)
+    if (findedUser) {
+      return findedUser.picture
+    } else {
+      return null
+    }
   }
 
   const like = () => props.onLikeBlog(props.blog, props.user.id)
@@ -23,12 +36,6 @@ const Blog = (props) => {
   const handleComment = () => {
     props.onAddComment({ comment: comment.value, user: props.user.id }, props.blog.id)
     clearComment()
-  }
-  const getCommentUserImage = (userID) => {
-    if (props.users) {
-      const findedUser = props.users.find(u => u.id === userID)
-      return findedUser ? findedUser.picture : null
-    }
   }
 
   return (
@@ -60,8 +67,7 @@ const Blog = (props) => {
               ?
               <button className={props.blog.usersLiked
                 // .includes(props.user.id)
-                .find(u => u.id === props.user.id)
-                ? 'ui disabled button' : 'ui button'}
+                .find(u => u.id === props.user.id) ? 'ui disabled button' : 'ui button'}
               onClick={like}>
                 <i className="heart icon"></i>
                 Like
@@ -81,7 +87,7 @@ const Blog = (props) => {
               </div>
               : null
             }
-            {props.user && props.blog.user.name === props.user.name
+            {props.user && props.blog.user.id === props.user.id
               ?
               <Link
                 to={'/blogs'}
@@ -116,7 +122,8 @@ const Blog = (props) => {
               <div className="ui relaxed divided list">
                 {props.blog.comments.map(comment =>
                   <div className="item" key={comment._id}>
-                    <Image className="ui avatar image" src={getCommentUserImage(comment.user)} />
+                    <Image className="ui avatar image"
+                      src={findUserPicture(comment.user)} />
                     <div className="content">
                       <div className="center aligned item" >
                         {comment.comment}

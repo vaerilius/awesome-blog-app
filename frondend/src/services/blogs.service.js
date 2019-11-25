@@ -30,7 +30,7 @@ const removeBlog = async (id) => {
   return reponse
 }
 const commentBlog = async (comment, id) => {
-  const response = await axios.post(`${baseUrl}/${id}/comments`, comment, getConfig())
+  const response = await axios.put(`${baseUrl}/${id}/comments`, comment, getConfig())
   return response.data
 }
 

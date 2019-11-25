@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const User = (props) => {
+
   if (!props.user) {
     return (
-      <h2>loading</h2>
+      <div className="ui active inverted dimmer">
+        <div className="ui text huge loader">Blogs Loading...</div>
+      </div>
     )
   }
 

@@ -1,13 +1,13 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
-// const Comment = require('../models/comment')
+const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
 const uuidv4 = require('uuid/v4')
 const multerS3 = require('multer-s3');
 const AWS = require('../utils/aws-config');
-let imageName= ''
+let imageName = ''
 
 const upload = multer({
   fileFilter: AWS.fileFilter,
@@ -32,6 +32,8 @@ blogsRouter.get('/', async (request, response, next) => {
     .populate('user', { username: 1, name: 1, picture: 1 })
     .populate('comment', { comment: 1, user: 1 })
     .populate('usersLiked', { username: 1, name: 1, picture: 1 })
+  // .populate('comment', {comment: 1 })
+
 
   response.json(blogs.map(blog => blog.toJSON()))
 
@@ -67,8 +69,7 @@ blogsRouter.post('/', upload.single('blogImage'), async (request, response, next
       description: body.description,
       url: `${process.env.AWS_UPLOADED_FILE_URL_LINK}/${imageName}`,
       likes: 0,
-      user: user,
-      usersLiked: []
+      user: user
     })
 
     const savedBlog = await blog.save()
@@ -104,18 +105,14 @@ blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body
   let findedBlog = await Blog.findById(request.params.id)
 
-  const blog = {
-    title: body.title,
-    description: body.description,
-    url: body.url,
-    likes: body.likes,
-    usersLiked: findedBlog.usersLiked.concat(body.user)
-  }
+  findedBlog.usersLiked = findedBlog.usersLiked.concat(body.user)
+  findedBlog.likes = body.likes
 
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, findedBlog, { new: true })
       .populate('user', { username: 1, name: 1, picture: 1 })
       .populate('comments', { comment: 1, user: 1 })
+      .populate('usersLiked', { username: 1, name: 1, picture: 1 })
 
     response.json(updatedBlog.toJSON())
   } catch (error) {
@@ -123,12 +120,14 @@ blogsRouter.put('/:id', async (request, response, next) => {
   }
 })
 
-blogsRouter.post('/:id/comments', async (request, response, next) => {
+blogsRouter.put('/:id/comments', async (request, response, next) => {
   try {
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $push: { comments: request.body } }, { new: true })
       .populate('user', { username: 1, name: 1, picture: 1 })
-      .populate('comment', { comment: 1, user: 1 })
-
+      .populate('usersLiked', { username: 1, name: 1, picture: 1 })
+    // .populate('comments') 
+    // not working
+   
     response.json(updatedBlog.toJSON())
 
   } catch (error) {

@@ -16,7 +16,7 @@ const NewBlog = (props) => {
     //   url: url.value,
     //   description: description.value
     // }
-    console.log(blogImage)
+    // console.log(blogImage)
 
     const formData = new FormData()
     formData.append('blogImage', blogImage)
@@ -28,7 +28,7 @@ const NewBlog = (props) => {
     resetTitle()
     setBlogImage(null)
     resetDescription()
-
+    return true
   }
 
   return (

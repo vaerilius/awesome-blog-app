@@ -2,7 +2,7 @@ import blogService from '../services/blogs.service'
 import { setNotification } from './notification.reducer'
 import io from 'socket.io-client'
 
-const socket = io('http://localhost:3001/')
+const socket = io('https://calm-reaches-63250.herokuapp.com/')
 
 const reducer = (state = [], action) => {
   switch (action.type) {

@@ -1,7 +1,7 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
-const Comment = require('../models/comment')
+// const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
 const uuidv4 = require('uuid/v4')

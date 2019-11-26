@@ -24,7 +24,7 @@ import Login from './components/auth/login'
 
 const App = (props) => {
 
-  const socket = io('http://localhost:3001/')
+  const socket = io('https://calm-reaches-63250.herokuapp.com/')
 
   useEffect(() => {
 

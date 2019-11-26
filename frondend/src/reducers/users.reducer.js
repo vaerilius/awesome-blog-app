@@ -1,6 +1,9 @@
 
 import usersService from '../services/users.service'
 import { setNotification } from './notification.reducer'
+import io from 'socket.io-client'
+
+const socket = io('https://calm-reaches-63250.herokuapp.com/')
 
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -31,6 +34,7 @@ export const signUp = (userData) => {
         createdUser
       })
       dispatch(setNotification({ message: 'sign up succeed', class: 'ui positive message' }))
+      socket.emit('change', createdUser)
 
     } catch (error) {
       console.log(error.message)

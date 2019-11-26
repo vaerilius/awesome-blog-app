@@ -13,7 +13,6 @@ io.on('connection', (socket)=>{
   socket.on('change', (data) => {
     console.log(data)
       io.sockets.emit('init', 'initialize app')
-
   })
 
 })

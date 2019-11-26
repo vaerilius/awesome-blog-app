@@ -19,6 +19,7 @@ const NewBlog = (props) => {
     props.onAddBlog(formData)
     resetTitle()
     setBlogImage(null)
+    // document.querySelector('#file_input_file').nodeValue = ''
     resetDescription()
     props.newBlogRef.current.toggleVisibility()
 
@@ -43,7 +44,8 @@ const NewBlog = (props) => {
       <div className="field">
         <label>url</label>
         <input
-          key={blogImage}
+          // key={blogImage}
+          // id="file_input_file"
           onChange={({ target }) => setBlogImage(target.files[0])}
           type='file'
         // {...url}

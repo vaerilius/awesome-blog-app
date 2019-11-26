@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { onLikeBlog, onRemoveBlog, onAddComment } from '../../../reducers/blogs.reducer'
 import { useField } from '../../../hooks/index'
@@ -12,17 +12,25 @@ const Blog = (props) => {
   if (!props.blog) {
 
     return (
-      <div className="ui vertically divided grid centered">
-        <Link to={'/blogs'}>
-          <Button primary>
-            Back to blogs <Icon name='step backward' />
-          </Button>
-        </Link>
-        <div className="inverted dimmer">
-          <div className="ui text huge loader">Blogs Loading...</div>
+
+      <div className="ui two column centered grid" style={{ marginTop: '30px' }}>
+        <div className="column">
+          <div className="ui active inverted dimmer">
+            <div className="ui text huge loader">Loading...or not found</div>
+          </div>
         </div>
 
+        <div className="column">
+          <div className="ui active inverted dimmer bottom">
+            <Link to={'/blogs'}>
+              <Button primary>
+                Back to blogs <Icon name='step backward' />
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
+
     )
   }
 

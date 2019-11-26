@@ -1,9 +1,11 @@
-# awesome-blog-app
+## awesome-blog-app
 ### https://awesome-blog-app3.herokuapp.com/
-#### Deploy vesion 4
+#### Deploy vesion 4 (Final)
 #### Application was made at Laurea University JavaScript course
 #### Frontend: React (Hooks, redux)
-#### Backend & Database: NodeJS & MongoDB
+#### Backend & Database: NodeJS, Multer, Express, MongoDB, AWS S3 storage
+#### Socket.IO for real time application
 
-#### hours spended = approximately 65h
+#### hours spended = approximately 70h
+##### To use you have to create .env file to your backend root dir and put there your secret environment variables
 

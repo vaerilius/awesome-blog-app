@@ -13,6 +13,8 @@ import Notification from './components/notification'
 import { Container } from 'semantic-ui-react'
 import io from 'socket.io-client'
 
+
+
 import {
   BrowserRouter as Router,
   Route
@@ -21,29 +23,31 @@ import Landing from './components/landing'
 import Login from './components/auth/login'
 
 const App = (props) => {
+
   const socket = io('http://localhost:3001/')
 
   useEffect(() => {
 
-    socket.on('connected', (data) => {
+    socket.on('init', (data) => {
       console.log(data)
       props.initializeBlogs()
       props.initializeUsers()
-      props.initializeUser()
     })
 
-
-
-
+    props.initializeBlogs()
+    props.initializeUsers()
+    props.initializeUser()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
 
+
+
+  // useEffect(() => {
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // }, [])
 
 
 

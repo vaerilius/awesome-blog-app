@@ -11,30 +11,24 @@ const NewBlog = (props) => {
 
 
   const handleSubmit = () => {
-    // const newBlog = {
-    //   title: title.value,
-    //   url: url.value,
-    //   description: description.value
-    // }
-    // console.log(blogImage)
-
     const formData = new FormData()
     formData.append('blogImage', blogImage)
     formData.append('title', title.value)
     formData.append('description', description.value)
 
     props.onAddBlog(formData)
-    props.newBlogRef.current.toggleVisibility()
     resetTitle()
     setBlogImage(null)
     resetDescription()
+    props.newBlogRef.current.toggleVisibility()
+
     return true
   }
 
   return (
     <Form
+      instantValidate={false}
       className="ui form"
-      // instantValidate={false}
       onSubmit={handleSubmit}>
       <div className="field">
         <label>title</label>
@@ -49,11 +43,12 @@ const NewBlog = (props) => {
       <div className="field">
         <label>url</label>
         <input
+          key={blogImage}
           onChange={({ target }) => setBlogImage(target.files[0])}
           type='file'
-          // {...url}
-          // validators={['required:1']}
-          // errorMessages={['this field is required']}
+        // {...url}
+        // validators={['required:1']}
+        // errorMessages={['this field is required']}
         />
       </div>
       <div className="field">

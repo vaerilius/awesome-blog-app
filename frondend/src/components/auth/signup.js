@@ -18,13 +18,6 @@ const Signup = (props) => {
     formData.append('name', name.value)
     formData.append('password', password.value)
 
-    // const newUser = {
-    //   username: username.value,
-    //   password: password.value,
-    //   picture: formData,
-    //   name: name.value
-    // }
-    // console.log(newUser)
     props.signUp(formData)
 
     resetName('')

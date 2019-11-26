@@ -24,7 +24,7 @@ const reducer = (state = [], action) => {
 export const initializeBlogs = () => {
   return async dispatch => {
     const blogs = await blogService.getAll()
-    
+
     dispatch({
       type: 'INIT_BLOGS',
       blogs
@@ -40,17 +40,12 @@ export const onLikeBlog = (blog, userID) => {
     try {
       const newBlog = { ...blog, likes: blog.likes + 1, user: userID }
       const updatedBlog = await blogService.updateBlog(blog.id, newBlog)
-      socket.emit('onChange', 'blog liked')
+      socket.emit('change', updatedBlog)
       dispatch({
         type: 'LIKE_BLOG',
         data: updatedBlog
       })
-      socket.on('init', (data) => {
-        dispatch(initializeBlogs())
-        // dispatch(initializeUsers())
-        // props.initializeUser()
-        console.log(data)
-      })
+
       dispatch(setNotification({ message: `blog: ${newBlog.title} just liked`, class: 'ui positive message' }))
     } catch (error) {
       dispatch(setNotification({ message: 'something went wrong', class: 'ui negative message' }))
@@ -62,11 +57,10 @@ export const onAddBlog = (data) => {
 
   return async dispatch => {
 
-
     try {
       const blog = await blogService.addBlog(data)
 
-      socket.emit('onChange', 'blog added')
+      socket.emit('change', blog)
 
       dispatch({
         type: 'ADD_BLOG',
@@ -86,18 +80,20 @@ export const onRemoveBlog = (id) => {
   return async dispatch => {
     try {
       await blogService.removeBlog(id)
+      socket.emit('change', 'blog removed')
+
       dispatch({
         type: 'REMOVE_BLOG',
         id
       })
       dispatch(setNotification({ message: `blog with id: ${id} just removed`, class: 'ui positive message' }))
-      socket.emit('onChange', 'blog removed')
+      // socket.emit('onChange', 'blog removed')
       // socket.on('init', (data) => {
       //   console.log(data)
       //   dispatch(initializeBlogs())
       // })
-    
-    
+
+
     } catch (error) {
       dispatch(setNotification({ message: error.message, class: 'ui negative message' }))
     }
@@ -107,10 +103,7 @@ export const onAddComment = (comment, id) => {
   return async dispatch => {
     try {
       const blog = await blogService.commentBlog(comment, id)
-      // console.log(blog)
-      // socket.on('receive', (data) => {
-      // console.log(data)
-      socket.emit('onChange', 'blog commented')
+      socket.emit('change', blog)
 
       dispatch({
         type: 'COMMENT_BLOG',

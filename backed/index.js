@@ -5,38 +5,20 @@ const config = require('./utils/config')
 const server = http.createServer(app)
 const io = require('socket.io')(server)
 
-// const io = socket(server)
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.emit('connected', 'user connected')
-
+io.on('connection', (socket)=>{
+  console.log('a user connected')
   socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
+    console.log('user disconnected')
+  })
+  socket.on('change', (data) => {
+    console.log(data)
+      io.sockets.emit('init', 'initialize app')
 
-  // socket.on('test', (data) =>{
-  //   console.log(data);
-  //   socket.emit('receive', data );
-  // });
-    socket.on('onChange', (data) => {
-      console.log(data)
-    socket.emit('init', 'init application' );
-  });
-setInterval(() => {
-  socket.emit('init', 'init application' );
-  
-}, 10000);
+  })
 
-
-
-});
-
+})
 
 server.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`)
 })
 
-module.exports = {
-  io
-}

@@ -1,17 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { onLikeBlog, onRemoveBlog, onAddComment } from '../../../reducers/blogs.reducer'
 import { useField } from '../../../hooks/index'
 import { Button, Icon, Image, Modal } from 'semantic-ui-react'
 
+
 const Blog = (props) => {
   const [comment, clearComment] = useField('text')
 
   if (!props.blog) {
+
     return (
-      <div className="ui active inverted dimmer">
-        <div className="ui text huge loader">Blogs Loading...</div>
+      <div className="ui vertically divided grid centered">
+        <Link to={'/blogs'}>
+          <Button primary>
+            Back to blogs <Icon name='step backward' />
+          </Button>
+        </Link>
+        <div className="inverted dimmer">
+          <div className="ui text huge loader">Blogs Loading...</div>
+        </div>
+
       </div>
     )
   }
@@ -68,7 +78,7 @@ const Blog = (props) => {
               <button className={props.blog.usersLiked
                 // .includes(props.user.id)
                 .find(u => u.id === props.user.id) ? 'ui disabled button' : 'ui button'}
-              onClick={like}>
+                onClick={like}>
                 <i className="heart icon"></i>
                 Like
               </button>

@@ -41,25 +41,6 @@ const App = (props) => {
   }, [])
 
 
-
-
-  // useEffect(() => {
-
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
-
-
-
-
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
-
   if (!props.blogs && props.users) {
     return (
       <div className="ui active inverted dimmer">

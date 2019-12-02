@@ -4,12 +4,12 @@ import NewBlogForm from './newBlogForm'
 import BlosListItem from './blogListItem'
 import Togglable from '../togglable'
 
+// Blogit kuva linkkeinä yksilöivään komponenttiin, järjestetty tykkäyksien mukaan ja
+// näytetään 3 kuvaa kerralla. Vain kirjautunut käyttäjä pystyy lisämään blogeja.
 const Blogs = (props) => {
   const [blogstTo, setBlogsTo] = useState(3)
   const [blogsFrom, setBlogsFrom] = useState(0)
-
-
-
+// palautetaan spinner jos ei löydy
   if (!props.blogs) {
     return (
       <div className="ui active inverted dimmer">

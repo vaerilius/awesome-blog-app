@@ -6,6 +6,9 @@ import { login } from '../../reducers/user.reducer'
 import { Form, Input } from 'semantic-ui-react-form-validator'
 import { Button } from 'semantic-ui-react'
 
+// Login komponentti ja viedään login data user reducerille.
+//ei mitään muuta ihmeellistä
+
 const Login = (props) => {
 
   const [username, resetUsername] = useField('text')

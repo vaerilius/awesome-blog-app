@@ -4,6 +4,7 @@ import { onAddBlog } from '../../reducers/blogs.reducer'
 import { useField } from '../../hooks/index'
 import { Form, TextArea } from 'semantic-ui-react-form-validator'
 
+// Uuden blogin komponentti ja datan vieminen blogs reducerille 
 const NewBlog = (props) => {
   const [title, resetTitle] = useField('text')
   const [blogImage, setBlogImage] = useState(null)
@@ -19,7 +20,6 @@ const NewBlog = (props) => {
     props.onAddBlog(formData)
     resetTitle()
     setBlogImage(null)
-    // document.querySelector('#file_input_file').nodeValue = ''
     resetDescription()
     props.newBlogRef.current.toggleVisibility()
 

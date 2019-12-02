@@ -5,6 +5,8 @@ import { useField } from '../../hooks/index'
 import { Form, Input } from 'semantic-ui-react-form-validator'
 import { Button } from 'semantic-ui-react'
 
+// Sign up komponentti, validaattorit ja viedään data users reducerille.
+
 const Signup = (props) => {
   const [username, resetUsername] = useField('text')
   const [name, resetName] = useField('text')

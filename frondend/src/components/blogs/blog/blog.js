@@ -5,7 +5,8 @@ import { onLikeBlog, onRemoveBlog, onAddComment } from '../../../reducers/blogs.
 import { useField } from '../../../hooks/index'
 import { Button, Icon, Image, Modal } from 'semantic-ui-react'
 
-
+// yksilöivä blogi ,blogin tykkääminen, poisto ja kommentointi datan vieminen blogs reducerille
+// ehdollisia näkyviä käyttäjästä riippuen.
 const Blog = (props) => {
   const [comment, clearComment] = useField('text')
 

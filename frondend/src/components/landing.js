@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Signup from './auth/signup'
 
+// etusivu kompponentti ja renderöidään Signup komponentti jos käyttäjä ei ole kirjautunut
 const Landing = (props) => {
 
   return (

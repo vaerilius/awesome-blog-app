@@ -1,5 +1,6 @@
 import { useState } from 'react'
-
+// custom hook, tätä hyödynnetään sovelluksen form:ssa / inputeissa
+// auttaa pitämään komponentit siistimpinä
 export const useField = (type) => {
   const [value, setValue] = useState('')
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+// pelkkä user lista kompponentti 
 const UserListItem = (props) => {
 
   if (!props.user) {

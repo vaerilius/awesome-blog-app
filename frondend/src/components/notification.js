@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-
+// Notification komponentti, näkyminen asetetaan näkymään reducereilla
 const Notfication = ({ notification }) => {
 
   if (notification.message === null) {
@@ -9,7 +9,6 @@ const Notfication = ({ notification }) => {
   }
   return (
     <div className={notification.class}>
-      <i className="close icon"></i>
       <div className="header">
         {notification.message}
       </div>

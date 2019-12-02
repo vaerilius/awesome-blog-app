@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+// Yksilöivä user komponentti, sekä käyttäjän blogit listattu linkkeinä
 const User = (props) => {
 
   if (!props.user) {
@@ -43,7 +43,7 @@ const User = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-
+  // tuodaan  reduxin state ja propsit
   return {
     user: state.users.find(u => u.id === ownProps.user.id)
   }

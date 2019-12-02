@@ -13,8 +13,6 @@ import Notification from './components/notification'
 import { Container } from 'semantic-ui-react'
 import io from 'socket.io-client'
 
-
-
 import {
   BrowserRouter as Router,
   Route
@@ -22,14 +20,16 @@ import {
 import Landing from './components/landing'
 import Login from './components/auth/login'
 
+const socket = io('https://calm-reaches-63250.herokuapp.com/')
+
+//importataan kaikki tarvittava Appiin (komponentit, kirjastot, yms.)
 const App = (props) => {
 
-  const socket = io('https://calm-reaches-63250.herokuapp.com/')
-
+  // alustetaan reducerit ja muiden käyttäjien tekemät muutokset sovellukseen socketin avulla (polling)
+  // vähän huono ratkaisu, mutta toimii
   useEffect(() => {
 
     socket.on('init', (data) => {
-      console.log(data)
       props.initializeBlogs()
       props.initializeUsers()
     })
@@ -40,7 +40,7 @@ const App = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-
+  // palautetaan spinner jos ei löydy
   if (!props.blogs && props.users) {
     return (
       <div className="ui active inverted dimmer">
@@ -49,7 +49,7 @@ const App = (props) => {
     )
   }
 
-
+  // palautetaan Routerin url:n komponenttit, css Semantic ui
   return (
     <>
       <Router>
@@ -72,6 +72,8 @@ const App = (props) => {
     </>
   )
 }
+
+// tuodaan propsit ja exportataan App komponentti käyttäen reduksin connectia. 
 
 const mapStateToProps = state => {
   console.log(state)

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import UserListItem from './user/userListItem'
 
+// käyttäjä lista komponentti linkkeineen, järjestetty blogien mukaan
 const UsersListItem = (props) => {
 
   if (!props.users) {

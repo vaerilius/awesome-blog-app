@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../../reducers/user.reducer'
 
+// Navbar komponentti linkkeineen ja ehdollinen näkymä kirjautuneelle käyttäjälle 
 const Navbar = (props) => {
 
   const handleLogout = () => props.logout()

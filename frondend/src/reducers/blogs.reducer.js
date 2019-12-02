@@ -4,6 +4,8 @@ import io from 'socket.io-client'
 
 const socket = io('https://calm-reaches-63250.herokuapp.com/')
 
+// Blogs reducer hoitaa blogeihin liittyvät toiminnallisuudet
+// alla oleva reducer hoitaa tilanmuuttumiset sovellukselle. 
 const reducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_BLOGS':
@@ -21,6 +23,13 @@ const reducer = (state = [], action) => {
       return state
   }
 }
+
+// alla olevat functiot ovat action creatoreja, joita react sovellus voi hyödyntää.
+// Exportataan function, joka paluttaa redux-storen dispatch metodin asynkronisena
+// eli functio odottaa awaitin ennenkuin palauttaa dispatchin.
+
+// alustetaan blogit hyödyntäen blogServicen funtionia getAll() ja välitetään saatu data reducerille,
+// joka muuttaa blogien tilan
 export const initializeBlogs = () => {
   return async dispatch => {
     const blogs = await blogService.getAll()
@@ -33,7 +42,8 @@ export const initializeBlogs = () => {
 }
 
 
-
+// Blogin tykkäämisen toiminnallisuus ja notification. Lähetään muutos myös socket.io,
+// joka välittää backendista muutoksen kaikille käyttäjille
 export const onLikeBlog = (blog, userID) => {
   return async dispatch => {
 
@@ -53,6 +63,7 @@ export const onLikeBlog = (blog, userID) => {
   }
 }
 
+// uuden blogin luonti ja toiminnallisuus,
 export const onAddBlog = (data) => {
 
   return async dispatch => {
@@ -76,6 +87,7 @@ export const onAddBlog = (data) => {
     }
   }
 }
+// blogin poisto ja toiminnallisuus
 export const onRemoveBlog = (id) => {
   return async dispatch => {
     try {
@@ -99,6 +111,7 @@ export const onRemoveBlog = (id) => {
     }
   }
 }
+// blogin kommentoinnin toiminnallisuus
 export const onAddComment = (comment, id) => {
   return async dispatch => {
     try {

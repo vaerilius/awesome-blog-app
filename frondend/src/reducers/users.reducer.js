@@ -5,6 +5,7 @@ import io from 'socket.io-client'
 
 const socket = io('https://calm-reaches-63250.herokuapp.com/')
 
+// kaikkien käyttäjien tilanhallinta
 const reducer = (state = [], action) => {
   switch (action.type) {
     case 'INIT_USERS':

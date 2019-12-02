@@ -4,6 +4,9 @@ const baseUrl = 'https://calm-reaches-63250.herokuapp.com/api/blogs'
 
 let token = null
 
+// blog service hoitaa kommunikoinnin backendin kanssa,
+// sekä token perusteisen tunnistautumisen
+
 const setToken = newToken => {
   token = `bearer ${newToken}`
 }
@@ -33,8 +36,6 @@ const commentBlog = async (comment, id) => {
   const response = await axios.put(`${baseUrl}/${id}/comments`, comment, getConfig())
   return response.data
 }
-
-
 
 export default {
   getAll,

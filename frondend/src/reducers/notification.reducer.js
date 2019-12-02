@@ -1,3 +1,5 @@
+// Notification reducer ja action reactor
+
 const reduser = (state = { type: '', message: null }, action) => {
   switch (action.type) {
     case 'SET_MESSAGE':

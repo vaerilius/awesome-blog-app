@@ -2,6 +2,7 @@ import blogsService from '../services/blogs.service'
 import userService from '../services/user.service'
 import { setNotification } from './notification.reducer'
 
+// käyttäjän tilan hallinta ja reducer storeen
 const reducer = (state = null, action) => {
 
   switch (action.type) {
